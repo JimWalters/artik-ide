@@ -56,6 +56,7 @@
     <inherits name='org.eclipse.che.ide.ext.plugins.PluginsDevelopment'/>
 
     <inherits name='org.eclipse.che.plugin.artik.Artik'/>
+    <inherits name='org.eclipse.che.plugin.cpp.Cpp'/>
     <inherits name='org.eclipse.che.plugin.docker.client.dto.Dto'/>
 
     <!-- Platform API GWT client dependencies                       -->
