@@ -19,14 +19,14 @@
         <version>4.2.0-RC1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>artik-ide-assembly-parent</artifactId>
+    <groupId>org.eclipse.che.plugin</groupId>
+    <artifactId>artik-ide-plugin-parent</artifactId>
     <version>4.2.0-RC1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Artik IDE :: Assemblies parent</name>
+    <name>Artik IDE Plugin :: Parent</name>
     <modules>
-        <module>assembly-machine-war</module>
-        <module>assembly-machine-server</module>
-        <module>assembly-ide-war</module>
-        <module>assembly-main</module>
+        <module>plugin-artik-shared</module>
+        <module>plugin-artik-server</module>
+        <module>plugin-artik-ide</module>
     </modules>
 </project>
