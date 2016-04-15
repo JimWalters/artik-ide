@@ -21,5 +21,29 @@
     <artifactId>artik-ide-plugin-server</artifactId>
     <packaging>jar</packaging>
     <name>Artik IDE :: Plugin :: Samsung Artik :: Server Component</name>
-    <dependencies />
+    <properties>
+        <findbugs.failonerror>true</findbugs.failonerror>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-multibindings</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.core</groupId>
+            <artifactId>che-core-api-machine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.plugin</groupId>
+            <artifactId>che-plugin-ssh-machine</artifactId>
+        </dependency>
+    </dependencies>
 </project>
