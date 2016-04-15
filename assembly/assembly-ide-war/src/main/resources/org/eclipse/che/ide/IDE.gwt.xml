@@ -42,14 +42,17 @@
     <!-- Extensions                                                 -->
     <inherits name='org.eclipse.che.ide.ext.help.HelpAboutExtension'/>
     <inherits name='org.eclipse.che.ide.ext.web.Web'/>
-    <inherits name='org.eclipse.che.ide.ext.java.jdi.JavaRuntimeExtension'/>
+    <inherits name='org.eclipse.che.ide.ext.debugger.DebuggerExtension'/>
+    <inherits name='org.eclipse.che.ide.gdb.GdbExtension'/>
+    <inherits name='org.eclipse.che.ide.ext.java.jdi.JavaDebuggerExtension'/>
     <inherits name='org.eclipse.che.ide.extension.machine.Machine'/>
     <inherits name='org.eclipse.che.ide.extension.maven.Maven'/>
     <inherits name='org.eclipse.che.ide.ext.gwt.GWT'/>
     <inherits name='org.eclipse.che.ide.ext.dashboard.Dashboard'/>
     <inherits name='org.eclipse.che.ide.ext.ssh.MachineSsh'/>
     <inherits name='org.eclipse.che.ide.ext.git.Git'/>
-    <inherits name='org.eclipse.che.ide.ext.github.GitHub'/>
+    <inherits name="org.eclipse.che.ide.ext.git.ssh.Ssh"/>
+    <inherits name='org.eclipse.che.plugin.github.GitHub'/>
     <inherits name='org.eclipse.che.ide.editor.orion.OrionEditor'/>
     <inherits name="org.eclipse.che.ide.orion.OrionCompare"/>
     <inherits name='org.eclipse.che.env.local.LocalEnvironment'/>
@@ -57,6 +60,8 @@
 
     <inherits name='org.eclipse.che.plugin.artik.Artik'/>
     <inherits name='org.eclipse.che.plugin.cpp.Cpp'/>
+    <inherits name='org.eclipse.che.plugin.python.Python'/>
+    <inherits name='org.eclipse.che.plugin.nodejs.NodeJs'/>
     <inherits name='org.eclipse.che.plugin.docker.client.dto.Dto'/>
 
     <!-- Platform API GWT client dependencies                       -->

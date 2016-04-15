@@ -1,2 +1,2 @@
-# plugin-artik
-plugin-artik
+# Artik IDE
+Artik IDE

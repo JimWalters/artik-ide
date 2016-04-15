@@ -16,38 +16,77 @@
     <parent>
         <artifactId>che-parent</artifactId>
         <groupId>org.eclipse.che</groupId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.2.0-RC1-SNAPSHOT</version>
     </parent>
-    <groupId>org.eclipse.che.plugin</groupId>
-    <artifactId>che-plugin-artik-parent</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <artifactId>artik-ide-parent</artifactId>
+    <version>4.2.0-RC1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Che Plugin :: Artik :: Parent</name>
+    <name>Artik IDE :: Parent</name>
     <modules>
-        <module>che-plugin-artik-shared</module>
-        <module>che-plugin-artik-ide</module>
-        <module>che-plugin-artik-server</module>
+        <module>plugins</module>
         <module>assembly</module>
     </modules>
+    <scm>
+        <connection>scm:git:git@github.com:codenvy/artik-ide.git</connection>
+        <developerConnection>scm:git:git@github.com:codenvy/artik-ide.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/codenvy/artik-ide</url>
+    </scm>
     <properties>
+        <che.version>4.2.0-RC1-SNAPSHOT</che.version>
         <dto-generator-out-directory>${project.build.directory}/generated-sources/dto/</dto-generator-out-directory>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.eclipse.che</groupId>
+                <artifactId>artik-ide-assembly-ide-war</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.che</groupId>
+                <artifactId>artik-ide-assembly-machine-server</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.che</groupId>
+                <artifactId>artik-ide-assembly-machine-war</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.che</groupId>
+                <artifactId>artik-ide-assembly-main</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.che.core</groupId>
+                <artifactId>che-core-api-dto-maven-plugin</artifactId>
+                <version>${che.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.eclipse.che.plugin</groupId>
-                <artifactId>che-plugin-artik-ide</artifactId>
+                <artifactId>artik-ide-plugin-ide</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.che.plugin</groupId>
-                <artifactId>che-plugin-artik-server</artifactId>
+                <artifactId>artik-ide-plugin-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.che.plugin</groupId>
-                <artifactId>che-plugin-artik-shared</artifactId>
+                <artifactId>artik-ide-plugin-shared</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.che</groupId>
+                <artifactId>che-parent</artifactId>
+                <version>${che.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
