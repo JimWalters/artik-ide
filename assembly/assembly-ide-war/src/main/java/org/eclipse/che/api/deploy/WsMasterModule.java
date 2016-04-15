@@ -137,5 +137,7 @@ public class WsMasterModule extends AbstractModule {
         install(new org.eclipse.che.plugin.machine.ssh.SshMachineModule());
 
         bind(org.eclipse.che.api.machine.server.terminal.MachineTerminalLauncher.class);
+
+        install(new org.eclipse.che.plugin.machine.artik.ArtikMachineModule());
     }
 }
