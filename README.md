@@ -15,18 +15,24 @@ Worskpaces run on your desktop, in the cloud, or on the device.
 Discover devices and manage connections over SSH. Manage users, passwords and persistent connections.
 
 ### Project Structure
+Create multiple projects mapped to different source repositories. Projects can have sub-project structures and typing to impbue different behaviors.
+
+### Programming Language Intelligence
+Intellisense for multiple languages. Local and on-device debugging for Java, Python, Go, C, and C++.
+
+### Workspace Runtimes
 Workspace runtimes are Docker-powered. Use our all-in-one stacks, pull from any registry, or author your own. Snapshot and embed runtimes into ... [Read More](https://www.eclipse.org/che/features/#docker-powered)
 
 ### Cloud IDE
-A no-installation browser IDE and IOE accessible from any local or remote device. Thin, fast, and beautiful - it's the IDE our own engineers wanted ... [Read More](https://www.eclipse.org/che/features/#cloud-ide)
+A no-installation browser IDE accessible from any local or remote device. Thin, fast, and beautiful. [Read More](https://www.eclipse.org/che/features/#cloud-ide)
 
 ### Getting Started
-Che can be installed on any OS that supports Java 1.8 - desktop, server or cloud, and Maven 3.3.1. It has been tested on Ubuntu, Linux, MacOS and Windows. 
+The ARTIK IDE can be installed on any OS that supports Java 1.8 - desktop, server or cloud, and Maven 3.3.1. It has been tested on Ubuntu, Linux, MacOS and Windows. 
 
-Follow the [step by step guide](http://eclipse.org/che/getting-started/) to install Che from our binaries.
+Follow the [step by step guide](http://eclipse.org/che/artik/getting-started.html) to install ARTIK IDE from our binaries.
 
 ### License
-Che is open sourced under the Eclipse Public License 1.0.
+ARTIK IDE is open sourced under the Eclipse Public License 1.0.
 
 ### Dependencies
 * Docker 1.8+
@@ -59,6 +65,40 @@ Building `/assembly` pulls already-built libraries for Eclipse Che `/core`, `/pl
 
 ### Run ARTIK IDE as a Server
 If you want to run the ARTIK IDE as a server, there are additional Eclipse Che flags that you may need to configure. Please see the [usage and networking documentation](https://eclipse-che.readme.io/docs/usage).
+
+### Modules
+These modules make up the ARTIK IDE assembly hosted at `http://github.com/codenvy/artik-ide`.
+```
+/artik-ide
+/artik-ide/assembly                                             # Generates binary assemblies of Che
+/artik-ide/assembly/assembly-main                               # Final packaging phase
+/artik-ide/assembly/assembly-ide-war                            # Creates the IDE.war from plug-ins & core
+/artik-ide/assembly/assembly-machine-war                        # Creates the agent WAR from plug-ins & core
+/artik-ide/assembly/assembly-machine-server                     # Creates the agent server that goes into ws
+```
+
+These modules make up Eclipse Che core, which is imported to create ARTIK IDE hosted at `http://github.com/eclipse/che`.
+```
+/che/core                                                 # Libraries shared among server, agents, and plugins
+/che/dashboard                                            # AngularJS app for managing Che
+/che/plugins                                              # IDE & agent plug-ins
+/che/wsmaster                                             # Libraries used by the Che server
+/che/wsagent                                              # Libraries used by agents installed into workspaces
+
+/che-lib                                                  # Forked dependencies that require mods
+/che-lib/swagger
+/che-lib/terminal
+/che-lib/websocket
+/che-lib/pty
+/che-lib/che-tomcat8-slf4j-logback
+
+# /che and /che-lib depend upon /che-dependencies
+/che-dependencies                                          # Maven dependencies used by che
+/che-dev                                                   # Code style and license header
+
+# /che-dependencies and /che-dev depend upon /che-parent
+/che-parent                                                # Maven plugins and profiles
+```
 
 ### Engage
 * **Contribute:** We accept pull requests. Please see [how to contribute] (https://github.com/codenvy/che/blob/master/CONTRIBUTING.md).
