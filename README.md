@@ -66,6 +66,9 @@ Building `/assembly` pulls already-built libraries for Eclipse Che `/core`, `/pl
 ### Run ARTIK IDE as a Server
 If you want to run the ARTIK IDE as a server, there are additional Eclipse Che flags that you may need to configure. Please see the [usage and networking documentation](https://eclipse-che.readme.io/docs/usage).
 
+### Custom Eclipse Che Assembly
+The ARTIK IDE is a custom [Eclipse Che assembly](https://eclipse-che.readme.io/docs/assemblies). On its own, Eclipse Che provides its own IDE. This repository rebuilds its own assembly using Eclipse Che as the baseline and then overrides the assembly instructions (in `/assembly` directory) and adds additional ARTIK-specific plugins (in the `/plugins`) directory. The assembly builds binaries that use base binaries from Eclipse Che that are stored in Che's nexus repository.
+
 ### Modules
 These modules make up the ARTIK IDE assembly hosted at `http://github.com/codenvy/artik-ide`.
 ```
@@ -75,6 +78,9 @@ These modules make up the ARTIK IDE assembly hosted at `http://github.com/codenv
 /artik-ide/assembly/assembly-ide-war                            # Creates the IDE.war from plug-ins & core
 /artik-ide/assembly/assembly-machine-war                        # Creates the agent WAR from plug-ins & core
 /artik-ide/assembly/assembly-machine-server                     # Creates the agent server that goes into ws
+/plugins/plugin-artik-ide                                       # Creates a new parent IDE, overriding Che's IDE
+/plugins/plugin-artik-server                                    # Creates custom ARTIK machine type, used by Che workspaces
+/plugins/plugin-artik-shared                                    # Classes shared between IDE and server
 ```
 
 These modules make up Eclipse Che core, which is imported to create ARTIK IDE hosted at `http://github.com/eclipse/che`.
