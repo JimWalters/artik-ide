@@ -78,9 +78,9 @@ These modules make up the ARTIK IDE assembly hosted at `http://github.com/codenv
 /artik-ide/assembly/assembly-ide-war                            # Creates the IDE.war from plug-ins & core
 /artik-ide/assembly/assembly-machine-war                        # Creates the agent WAR from plug-ins & core
 /artik-ide/assembly/assembly-machine-server                     # Creates the agent server that goes into ws
-/plugins/plugin-artik-ide                                       # Creates a new parent IDE, overriding Che's IDE
-/plugins/plugin-artik-server                                    # Creates custom ARTIK machine type, used by Che workspaces
-/plugins/plugin-artik-shared                                    # Classes shared between IDE and server
+/artik-ide/plugins/plugin-artik-ide                             # Creates a new parent IDE, overriding Che's IDE
+/artik-ide/plugins/plugin-artik-server                          # Creates custom ARTIK machine, used for workspaces
+/artik-ide/plugins/plugin-artik-shared                          # Classes shared between IDE and server
 ```
 
 These modules make up Eclipse Che core, which is imported to create ARTIK IDE hosted at `http://github.com/eclipse/che`.
@@ -107,7 +107,7 @@ These modules make up Eclipse Che core, which is imported to create ARTIK IDE ho
 ```
 
 ### Engage
-* **Contribute:** We accept pull requests. Please see [how to contribute] (https://github.com/codenvy/che/blob/master/CONTRIBUTING.md).
+* **Contribute:** We accept pull requests. [How to contribute to ARTIK IDE](https://github.com/codenvy/artik-ide/blob/master/CONTRIBUTING.md) or [contribute to Eclpse Che](https://github.com/eclipse/che/blob/master/CONTRIBUTING.md).
 * **Customize:** [Runtimes, stacks, commands, assemblies, extensions, plug-ins](https://github.com/eclipse/che/blob/master/CUSTOMIZING.md).
 * **Support:** You can report bugs using GitHub issues.
 * **Developers:** Plug-in developers can get API help at [che-dev@eclipse.org](email:che-dev@eclipse.org). 
