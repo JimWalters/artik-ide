@@ -108,32 +108,6 @@
                 <include>ch.qos.logback:logback-core</include>
             </includes>
         </dependencySet>
-        <dependencySet>
-            <useProjectArtifact>false</useProjectArtifact>
-            <unpack>true</unpack>
-            <outputDirectory>stacks</outputDirectory>
-            <includes>
-                <include>org.eclipse.che.core:che-core-ide-stacks</include>
-            </includes>
-            <unpackOptions>
-                <excludes>
-                    <exclude>META-INF/**</exclude>
-                </excludes>
-            </unpackOptions>
-        </dependencySet>
-        <dependencySet>
-            <useProjectArtifact>false</useProjectArtifact>
-            <unpack>true</unpack>
-            <outputDirectory>templates</outputDirectory>
-            <includes>
-                <include>org.eclipse.che.core:che-core-ide-templates</include>
-            </includes>
-            <unpackOptions>
-                <excludes>
-                    <exclude>META-INF/**</exclude>
-                </excludes>
-            </unpackOptions>
-        </dependencySet>
     </dependencySets>
     <fileSets>
         <fileSet>
@@ -150,6 +124,14 @@
         <fileSet>
             <directory>${project.basedir}/src/assembly/plugins</directory>
             <outputDirectory>plugins</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/templates</directory>
+            <outputDirectory>templates</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/stacks</directory>
+            <outputDirectory>stacks</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/assembly/webapps</directory>
