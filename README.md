@@ -8,13 +8,13 @@ https://www.eclipse.org/che/. Next-generation Eclipse IDE. Open source workspace
 
 ![Eclipse Che](https://www.eclipse.org/che/images/hero-home.png "Eclipse Che")
 
-### Workspaces With Runtimes
-Workspaces are composed of projects and runtimes. Create portable and moavable workspaces that run anywhere, anytime in the cloud or on your desktop ... [Read More](https://www.eclipse.org/che/features/#new-workspace)
+### Universal Workspaces
+Worskpaces run on your desktop, in the cloud, or on the device.
 
-### Collaborative Workspace Server
-Host Eclipse Che as a workspace server. Share tools, runtime and programming services across workspaces and teams. Control workspaces with REST APIs ... [Read More](https://www.eclipse.org/che/features/#collaborative)
+### Device Discovery
+Discover devices and manage connections over SSH. Manage users, passwords and persistent connections.
 
-### Docker-Powered Environments
+### Project Structure
 Workspace runtimes are Docker-powered. Use our all-in-one stacks, pull from any registry, or author your own. Snapshot and embed runtimes into ... [Read More](https://www.eclipse.org/che/features/#docker-powered)
 
 ### Cloud IDE
