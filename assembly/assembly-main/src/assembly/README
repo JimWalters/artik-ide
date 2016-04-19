@@ -9,32 +9,28 @@
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
 
-                               Eclipse Che
-                       ---------------------------
-                       Next Generation Eclipse IDE
-
+Samsung ARTIK IDE
 
 =============
 Requirements
 =============
-
  *  Java Platform, Standard Edition 8 Development Kit.
  *  Apache Maven version 3.3.1+.
- *  Docker 1.8+.
-
+ *  Docker 1.10+.
 
 ===============
 Getting Started
 ===============
-See eclipse.org/che
+See eclipse.org/che/artik
 
 =============
 Contributing
 =============
-See github.com/eclipse/che
+See github.com/codenvy/artik-ide/CONTRIBUTING.md
 
 ==============
 Documentation
 ==============
+TODO: Update
 See eclipse-che.readme.io
 
