@@ -3,8 +3,7 @@
 [![Eclipse License](http://img.shields.io/badge/license-Eclipse-brightgreen.svg)](https://github.com/codenvy/che/blob/master/LICENSE)
 [![Build Status](http://ci.codenvy-dev.com/jenkins/buildStatus/icon?job=che-ci-master)](http://ci.codenvy-dev.com/jenkins/job/che-ci-master)
 
-TODO: Place with ARTIK IDE Home Page
-https://www.eclipse.org/che/. Next-generation Eclipse IDE. Open source workspace server and cloud IDE.
+https://www.eclipse.org/che/artik/. IDE for Samsung ARTIK platform. 
 
 ![Eclipse Che](https://www.eclipse.org/che/images/hero-home.png "Eclipse Che")
 
@@ -48,11 +47,11 @@ If master is unstable, checkout the latest tagged version.
 
 ### Build and Run
 ```sh
-cd artik-ide/assembly/assembly-main/
+cd artik-ide
 mvn clean install
 
 # A new assembly is placed in:
-cd artik-ide/assembly/assembly-main/target/eclipse-che-<version>/eclipse-che-<version>
+cd assembly/assembly-main/target/eclipse-che-<version>/eclipse-che-<version>
 
 # Executable files are:
 bin/che.sh
@@ -109,6 +108,6 @@ These modules make up Eclipse Che core, which is imported to create ARTIK IDE ho
 ### Engage
 * **Contribute:** We love pull requests! [Contribute to ARTIK IDE](https://github.com/codenvy/artik-ide/blob/master/CONTRIBUTING.md) or [contribute to Eclipse Che](https://github.com/eclipse/che/blob/master/CONTRIBUTING.md).
 * **Customize:** [Runtimes, stacks, commands, assemblies, extensions, plug-ins](https://github.com/eclipse/che/blob/master/CUSTOMIZING.md).
-* **Support:** You can report bugs using GitHub issues.
-* **Developers:** Plug-in developers can get API help at [che-dev@eclipse.org](email:che-dev@eclipse.org). 
-* **Website:** [eclipse.org/che](https://eclipse.org/che).
+* **Support:** You can report bugs using [GitHub issues](https://github.com/eclipse/che/issues).
+* **Developers:** Plug-in developers can get help on [Eclipse Che's dev list](email:che-dev@eclipse.org). 
+* **Website:** [eclipse.org/che](https://eclipse.org/che/artik).
