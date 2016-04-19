@@ -30,12 +30,17 @@
         </dependencySet>
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
-            <unpack>false</unpack>
-            <outputDirectory>tomcat/webapps</outputDirectory>
+            <unpack>true</unpack>
+            <outputDirectory>tomcat/webapps/dashboard</outputDirectory>
             <outputFileNameMapping>dashboard.war</outputFileNameMapping>
             <includes>
                 <include>org.eclipse.che.dashboard:che-dashboard-war</include>
             </includes>
+            <unpackOptions>
+                <excludes>
+                    <exclude>assets/branding/**</exclude>
+                </excludes>
+            </unpackOptions>
         </dependencySet>
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
@@ -136,6 +141,10 @@
         <fileSet>
             <directory>${project.basedir}/src/assembly/webapps</directory>
             <outputDirectory>tomcat/webapps</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/assembly/assets</directory>
+            <outputDirectory>tomcat/webapps/dashboard/assets</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>${project.parent.basedir}/assembly-ide-war/src/main/webapp/WEB-INF/classes/codenvy</directory>
