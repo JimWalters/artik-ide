@@ -2,6 +2,10 @@ Vagrant.configure(2) do |config|
   config.vm.box = "boxcutter/centos71-docker"
   config.vm.box_download_insecure = true
   config.vm.network :private_network, ip: "192.168.28.28"
+
+  config.vm.define "artik" do |artik|
+  end
+
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4096"
     vb.name = "artik-ide-vm"
