@@ -109,5 +109,5 @@ These modules make up Eclipse Che core, which is imported to create ARTIK IDE ho
 * **Contribute:** We love pull requests! [Contribute to ARTIK IDE](https://github.com/codenvy/artik-ide/blob/master/CONTRIBUTING.md) or [contribute to Eclipse Che](https://github.com/eclipse/che/blob/master/CONTRIBUTING.md).
 * **Customize:** [Runtimes, stacks, commands, assemblies, extensions, plug-ins](https://github.com/eclipse/che/blob/master/CUSTOMIZING.md).
 * **Support:** You can report bugs using [GitHub issues](https://github.com/eclipse/che/issues).
-* **Developers:** Plug-in developers can get help on [Eclipse Che's dev list](email:che-dev@eclipse.org). 
+* **Developers:** Plug-in developers can get help on [Eclipse Che's dev list](mailto:che-dev@eclipse.org). 
 * **Website:** [eclipse.org/che/artik](https://eclipse.org/che/artik).
