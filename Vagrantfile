@@ -37,6 +37,9 @@ Vagrant.configure(2) do |config|
 
     echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-4.2.0-RC1-SNAPSHOT/bin/che.sh --remote:192.168.28.28 --skip:client -g start
 
+  SHELL
+
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
     echo "."
     echo "."
     echo "ARTIK IDE: SERVER BOOTING ~10s"
