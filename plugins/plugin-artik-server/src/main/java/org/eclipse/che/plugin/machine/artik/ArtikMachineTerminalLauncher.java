@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.che.plugin.machine.artik;
 
+import org.eclipse.che.api.machine.server.terminal.WebsocketTerminalFilesPathProvider;
 import org.eclipse.che.plugin.machine.ssh.SshMachineImplTerminalLauncher;
-import org.eclipse.che.plugin.machine.ssh.WebsocketTerminalFilesPathProvider;
 
 import javax.inject.Inject;
 import javax.inject.Named;
