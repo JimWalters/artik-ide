@@ -52,6 +52,7 @@ public class WsAgentModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(ApiInfoService.class);
+        bind(org.eclipse.che.plugin.machine.artik.scp.PushToDeviceService.class);
 
         bind(PreferenceDao.class).to(org.eclipse.che.api.local.RemotePreferenceDao.class);
 
