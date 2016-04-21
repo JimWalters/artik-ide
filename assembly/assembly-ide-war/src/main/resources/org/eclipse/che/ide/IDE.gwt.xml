@@ -41,7 +41,7 @@
     <inherits name="org.eclipse.che.ide.ui.CodenvyUI"/>
 
     <!-- Extensions                                                 -->
-    <inherits name='org.eclipse.che.ide.ext.help.HelpAboutExtension'/>
+    <inherits name='org.eclipse.che.plugin.artik.ide.ext.help.HelpAboutExtension'/>
     <inherits name='org.eclipse.che.ide.ext.web.Web'/>
     <inherits name='org.eclipse.che.ide.ext.debugger.DebuggerExtension'/>
     <inherits name='org.eclipse.che.ide.gdb.GdbExtension'/>
@@ -64,6 +64,7 @@
     <inherits name='org.eclipse.che.plugin.python.Python'/>
     <inherits name='org.eclipse.che.plugin.nodejs.NodeJs'/>
     <inherits name='org.eclipse.che.plugin.docker.client.dto.Dto'/>
+    <inherits name='org.eclipse.che.plugin.artik.ide.info.ProductInfo'/>
 
     <!-- Platform API GWT client dependencies                       -->
     <inherits name='org.eclipse.che.api.Auth'/>
