@@ -157,8 +157,12 @@ public class PushToDeviceService extends Service {
 
             Object[] errors = errorReader.lines().toArray();
             if (errors.length > 0) {
-                throw new ServerException("Some error happened during executing command. The reason: " +
-                                          Arrays.stream(errors).map(Object::toString).collect(Collectors.joining(" ")));
+                String error = Arrays.stream(errors).map(Object::toString).collect(Collectors.joining(" "));
+                if (isItHostAddedWarningMessage(error)) {
+                    launchProcess(commandLine);
+                } else {
+                    throw new ServerException("Some error happened during executing command. The reason: " + error);
+                }
             }
             return Response.status(204).build();
         } catch (InterruptedException exception) {
@@ -167,5 +171,9 @@ public class PushToDeviceService extends Service {
 
             throw new ServerException(exception);
         }
+    }
+
+    private boolean isItHostAddedWarningMessage(String error) {
+        return error.startsWith("Warning: Permanently added") && error.endsWith("to the list of known hosts.");
     }
 }
