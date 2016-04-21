@@ -16,8 +16,13 @@ import com.google.web.bindery.event.shared.EventBus;
 
 import org.eclipse.che.api.machine.gwt.client.events.WsAgentStateEvent;
 import org.eclipse.che.api.machine.gwt.client.events.WsAgentStateHandler;
+import org.eclipse.che.ide.api.action.ActionManager;
+import org.eclipse.che.ide.api.action.DefaultActionGroup;
+import org.eclipse.che.ide.api.action.IdeActions;
+import org.eclipse.che.ide.api.constraints.Constraints;
 import org.eclipse.che.ide.api.extension.Extension;
 import org.eclipse.che.plugin.artik.ide.scp.PushToDeviceManager;
+import org.eclipse.che.plugin.artik.ide.manage.ManageArtikDevicesAction;
 
 /**
  * @author Dmitry Shnurenko
@@ -39,5 +44,16 @@ public class ArtikExtension {
 
             }
         });
+    }
+
+    @Inject
+    private void prepareActions(ManageArtikDevicesAction manageDevicesAction,
+                                ActionManager actionManager, ArtikResources artikResources) {
+        artikResources.getCss().ensureInjected();
+
+        actionManager.registerAction("manageArtikDevices", manageDevicesAction);
+
+        DefaultActionGroup centerToolbarGroup = (DefaultActionGroup)actionManager.getAction(IdeActions.GROUP_CENTER_TOOLBAR);
+        centerToolbarGroup.add(manageDevicesAction, Constraints.FIRST);
     }
 }
