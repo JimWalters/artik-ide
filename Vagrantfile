@@ -55,7 +55,7 @@ Vagrant.configure(2) do |config|
     echo "."
     echo "."
     echo "ARTIK IDE: SERVER BOOTING ~10s"
-    echo "AVAILABLE: http://192.16.28.28:8080"
+    echo "AVAILABLE: http://192.168.28.28:8080"
     echo "."
     echo "."
 
