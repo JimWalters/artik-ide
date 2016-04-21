@@ -22,6 +22,8 @@ import org.eclipse.che.ide.api.action.DefaultActionGroup;
 import org.eclipse.che.ide.api.action.IdeActions;
 import org.eclipse.che.ide.api.constraints.Constraints;
 import org.eclipse.che.ide.api.extension.Extension;
+import org.eclipse.che.ide.api.icon.Icon;
+import org.eclipse.che.ide.api.icon.IconRegistry;
 import org.eclipse.che.plugin.artik.ide.scp.PushToDeviceManager;
 import org.eclipse.che.plugin.artik.ide.manage.ManageArtikDevicesAction;
 
@@ -33,7 +35,9 @@ import org.eclipse.che.plugin.artik.ide.manage.ManageArtikDevicesAction;
 public class ArtikExtension {
 
     @Inject
-    public ArtikExtension(EventBus eventBus, final PushToDeviceManager pushToDeviceManager) {
+    public ArtikExtension(EventBus eventBus, final PushToDeviceManager pushToDeviceManager, IconRegistry iconRegistry, ArtikResources artikResources) {
+        artikResources.getCss().ensureInjected();
+
         eventBus.addHandler(WsAgentStateEvent.TYPE, new WsAgentStateHandler() {
             @Override
             public void onWsAgentStarted(WsAgentStateEvent wsAgentStateEvent) {
@@ -45,6 +49,8 @@ public class ArtikExtension {
 
             }
         });
+
+        iconRegistry.registerIcon(new Icon("artik.machine.icon", artikResources.artikIcon()));
     }
 
     @Inject
