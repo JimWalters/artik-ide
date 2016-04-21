@@ -36,11 +36,18 @@ Vagrant.configure(2) do |config|
 
     echo "."
     echo "."
+    echo "ARTIK IDE: DOWNLOADING ARTIK RUNTIME IMAGE"
+    echo "."
+    echo "."
+    docker pull codenvy/artik
+
+    echo "."
+    echo "."
     echo "ARTIK IDE: PREPPING SERVER"
     echo "."
     echo "."
 
-    echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-4.2.0-RC1-SNAPSHOT/bin/che.sh --remote:192.168.28.28 --skip:client -g start
+    echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:192.168.28.28 --skip:client -g start
 
   SHELL
 
