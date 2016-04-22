@@ -5,7 +5,7 @@
 
 https://www.eclipse.org/che/artik/. IDE for Samsung ARTIK platform. 
 
-![Eclipse Che](https://www.eclipse.org/che/images/hero-home.png "Eclipse Che")
+![Eclipse Che](https://www.eclipse.org/che/images/artik/hero-home-artik.png "Eclipse Che")
 
 ### Universal Workspaces
 Worskpaces run on your desktop, in the cloud, or on the device.
@@ -28,7 +28,7 @@ A no-installation browser IDE accessible from any local or remote device. Thin, 
 ### Getting Started
 The ARTIK IDE can be installed on any OS that supports Java 1.8 - desktop, server or cloud, and Maven 3.3.1. It has been tested on Ubuntu, Linux, MacOS and Windows. 
 
-Follow the [step by step guide](http://eclipse.org/che/artik/getting-started.html) to install ARTIK IDE from our binaries.
+Follow the [step by step guide](https://dash.readme.io/project/eclipse-che/v4.0/docs/samsung-artik-ide-getting-started) to install ARTIK IDE from our binaries.
 
 ### License
 ARTIK IDE is open sourced under the Eclipse Public License 1.0.
@@ -38,7 +38,11 @@ ARTIK IDE is open sourced under the Eclipse Public License 1.0.
 * Maven 3.3.1+
 * Java 1.8
 
-### Clone
+### Vagrant
+We suggest using [the Vagrantfile](https://github.com/codenvy/artik-ide/blob/master/Vagrantfile) to create a Che image - it's the fastest and easiest way. You can read our [getting started with Che in Vagrant](https://dash.readme.io/project/eclipse-che/v4.0/docs/usage) in our docs.
+
+### Clone and Build
+Alternatively, you can clone the code and build the ARTIK IDE from scratch.
 
 ```sh
 git clone https://github.com/codenvy/artik-ide.git
