@@ -90,6 +90,14 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
     void setHost(String host);
 
     /**
+     * Sets the list of discovered hosts
+     *
+     * @param hosts
+     *          available hosts
+     */
+    void setHosts(List<String> hosts);
+
+    /**
      * Returns value of host field.
      *
      * @return

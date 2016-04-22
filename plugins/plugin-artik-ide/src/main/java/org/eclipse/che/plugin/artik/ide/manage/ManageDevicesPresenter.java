@@ -50,6 +50,8 @@ import org.eclipse.che.ide.util.loging.Log;
 import org.eclipse.che.ide.websocket.MessageBusProvider;
 import org.eclipse.che.ide.websocket.rest.SubscriptionHandler;
 import org.eclipse.che.plugin.artik.ide.ArtikLocalizationConstant;
+import org.eclipse.che.plugin.artik.ide.discovery.DeviceDiscoveryServiceClient;
+import org.eclipse.che.plugin.artik.shared.dto.ArtikDeviceDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,24 +70,25 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
     public final static String ARTIK_CATEGORY = "artik";
     public final static String SSH_CATEGORY   = "ssh-config";
 
-    private final ManageDevicesView         view;
-    private final RecipeServiceClient       recipeServiceClient;
-    private final DtoFactory                dtoFactory;
-    private final DtoUnmarshallerFactory    dtoUnmarshallerFactory;
-    private final DialogFactory             dialogFactory;
-    private final NotificationManager       notificationManager;
-    private final ArtikLocalizationConstant locale;
-    private final AppContext                appContext;
-    private final MachineServiceClient      machineService;
-    private final WorkspaceServiceClient    workspaceServiceClient;
-    private final EventBus                  eventBus;
-    private final MessageBusProvider        messageBusProvider;
+    private final ManageDevicesView            view;
+    private final RecipeServiceClient          recipeServiceClient;
+    private final DtoFactory                   dtoFactory;
+    private final DtoUnmarshallerFactory       dtoUnmarshallerFactory;
+    private final DialogFactory                dialogFactory;
+    private final NotificationManager          notificationManager;
+    private final ArtikLocalizationConstant    locale;
+    private final AppContext                   appContext;
+    private final MachineServiceClient         machineService;
+    private final WorkspaceServiceClient       workspaceServiceClient;
+    private final DeviceDiscoveryServiceClient deviceDiscoveryService;
+    private final EventBus                     eventBus;
+    private final MessageBusProvider           messageBusProvider;
 
-    private final List<Device>              devices = new ArrayList<>();
-    private Device                          selectedDevice;
-    private final Map<String, MachineDto>   machines = new HashMap<>();
+    private final List<Device> devices = new ArrayList<>();
+    private Device selectedDevice;
+    private final Map<String, MachineDto> machines = new HashMap<>();
 
-    private StatusNotification              connectNotification;
+    private StatusNotification connectNotification;
 
     private Map<String, SubscriptionHandler<MachineStatusEvent>> subscriptions = new HashMap<>();
 
@@ -100,6 +103,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
                                   final AppContext appContext,
                                   final MachineServiceClient machineService,
                                   final WorkspaceServiceClient workspaceServiceClient,
+                                  final DeviceDiscoveryServiceClient deviceDiscoveryService,
                                   final EventBus eventBus,
                                   final MessageBusProvider messageBusProvider) {
         this.view = view;
@@ -112,6 +116,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         this.appContext = appContext;
         this.machineService = machineService;
         this.workspaceServiceClient = workspaceServiceClient;
+        this.deviceDiscoveryService = deviceDiscoveryService;
         this.eventBus = eventBus;
         this.messageBusProvider = messageBusProvider;
 
@@ -127,10 +132,39 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         view.show();
         view.clear();
 
+        discoverDevices();
+
         Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
             @Override
             public void execute() {
                 updateDevices(null);
+            }
+        });
+    }
+
+    /**
+     * Discovers connected devices.
+     */
+    private void discoverDevices() {
+        Promise<List<ArtikDeviceDto>> promise = deviceDiscoveryService.getDevices();
+
+        promise.then(new Operation<List<ArtikDeviceDto>>() {
+            @Override
+            public void apply(List<ArtikDeviceDto> devices) throws OperationException {
+                List<String> hosts = new ArrayList<String>();
+                for (ArtikDeviceDto device : devices) {
+                    hosts.add(device.getIPAddress());
+                }
+
+                view.setHosts(hosts);
+            }
+        });
+
+        promise.catchError(new Operation<PromiseError>() {
+            @Override
+            public void apply(PromiseError e) throws OperationException {
+                view.setHosts(null);
+                Log.error(ManageDevicesPresenter.class, "Failed to discover devices. " + e.getMessage());
             }
         });
     }
@@ -645,7 +679,28 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
 
     @Override
     public void onWsAgentStarted(WsAgentStateEvent event) {
-        edit();
+       checkArtikMachineExists();
+    }
+
+    private void checkArtikMachineExists() {
+        recipeServiceClient.getAllRecipes().then(new Operation<List<RecipeDescriptor>>() {
+            @Override
+            public void apply(List<RecipeDescriptor> recipeList) throws OperationException {
+                boolean noArtikMachine = true;
+
+                for (RecipeDescriptor recipe : recipeList) {
+                    // Filter recipe by type SSH_CATEGORY and tag - ARTIK_CATEGORY
+                    if ((SSH_CATEGORY.equalsIgnoreCase(recipe.getType()) && recipe.getTags().contains(ARTIK_CATEGORY))) {
+                        noArtikMachine = false;
+                        break;
+                    }
+                }
+
+                if (noArtikMachine) {
+                    edit();
+                }
+            }
+        });
     }
 
     @Override

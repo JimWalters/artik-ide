@@ -12,19 +12,21 @@
 package org.eclipse.che.plugin.artik.shared.dto;
 
 import org.eclipse.che.dto.shared.DTO;
+import org.eclipse.che.plugin.artik.shared.ArtikDevice;
 
 /**
+ * DTO for {@link ArtikDevice}.
  *
+ * @author Artem Zatsarynnyi
  */
 @DTO
-public interface ArtikDeviceInfo {
+public interface ArtikDeviceDto extends ArtikDevice {
 
-    ArtikDeviceInfo withIP(String ip);
+    void setId(String id);
 
-    ArtikDeviceInfo withName(String name);
+    ArtikDeviceDto withId(String id);
 
-    String getIP();
+    void setIPAddress(String ip);
 
-    String getName();
-
+    ArtikDeviceDto withIPAddress(String ip);
 }

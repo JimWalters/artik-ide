@@ -27,6 +27,9 @@ public interface ArtikLocalizationConstant extends Messages {
     @Key("manage.artik.devices.view.new.device.hint")
     String manageArtikDevicesViewNewDeviceHint();
 
+    @Key("manage.artik.devices.view.no.hosts")
+    String manageArtikDevicesViewNoHosts();
+
     @Key("manage.artik.devices.view.name")
     String manageArtikDevicesViewName();
 
