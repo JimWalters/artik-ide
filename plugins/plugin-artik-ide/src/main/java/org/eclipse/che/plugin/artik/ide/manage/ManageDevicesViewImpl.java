@@ -12,13 +12,14 @@
 package org.eclipse.che.plugin.artik.ide.manage;
 
 import elemental.events.KeyboardEvent;
-import elemental.svg.SVGElement;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
@@ -31,6 +32,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -39,13 +41,13 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import org.eclipse.che.ide.CoreLocalizationConstant;
-import org.eclipse.che.ide.api.icon.Icon;
 import org.eclipse.che.ide.api.icon.IconRegistry;
 import org.eclipse.che.ide.extension.machine.client.command.edit.EditCommandResources;
 import org.eclipse.che.ide.ui.Tooltip;
 import org.eclipse.che.ide.ui.list.CategoriesList;
 import org.eclipse.che.ide.ui.list.Category;
 import org.eclipse.che.ide.ui.list.CategoryRenderer;
+import org.eclipse.che.ide.ui.listbox.CustomComboBox;
 import org.eclipse.che.ide.ui.window.Window;
 import org.eclipse.che.plugin.artik.ide.ArtikLocalizationConstant;
 import org.eclipse.che.plugin.artik.ide.ArtikResources;
@@ -97,7 +99,10 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
     TextBox deviceName;
 
     @UiField
-    TextBox host;
+    CustomComboBox host;
+
+    @UiField
+    Label noHostsLabel;
 
     @UiField
     TextBox port;
@@ -198,6 +203,13 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
             }
         });
 
+        host.addChangeHandler(new ChangeHandler() {
+            @Override
+            public void onChange(ChangeEvent event) {
+                delegate.onHostChanged(host.getValue());
+            }
+        });
+
         port.addKeyUpHandler(new KeyUpHandler() {
             @Override
             public void onKeyUp(KeyUpEvent keyUpEvent) {
@@ -232,6 +244,8 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
         hintPanel.setVisible(true);
         infoPanel.setVisible(false);
         propertiesPanel.setVisible(false);
+
+        setHosts(null);
     }
 
     @Override
@@ -406,6 +420,22 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
     @Override
     public void setHost(String host) {
         this.host.setValue(host);
+    }
+
+    @Override
+    public void setHosts(List<String> hosts) {
+        boolean noHosts = (hosts == null || hosts.isEmpty());
+
+        noHostsLabel.setVisible(noHosts);
+
+        if (noHosts) {
+            return;
+        }
+
+        host.clear();
+        for (String value : hosts) {
+            host.addItem(value, value);
+        }
     }
 
     @Override

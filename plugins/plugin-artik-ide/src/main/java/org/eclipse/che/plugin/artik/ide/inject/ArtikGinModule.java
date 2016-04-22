@@ -13,21 +13,25 @@ package org.eclipse.che.plugin.artik.ide.inject;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
+import com.google.inject.Singleton;
 
 import org.eclipse.che.ide.api.extension.ExtensionGinModule;
+import org.eclipse.che.plugin.artik.ide.discovery.DeviceDiscoveryServiceClient;
+import org.eclipse.che.plugin.artik.ide.discovery.DeviceDiscoveryServiceClientImpl;
 import org.eclipse.che.plugin.artik.ide.scp.action.PushToDeviceActionFactory;
 
 /**
+ * Gin module for Artik extension.
+ *
  * @author Vitalii Parfonov
+ * @author Artem Zatsarynnyi
  */
 @ExtensionGinModule
 public class ArtikGinModule extends AbstractGinModule {
 
-    /** {@inheritDoc} */
     @Override
     protected void configure() {
         install(new GinFactoryModuleBuilder().build(PushToDeviceActionFactory.class));
+        bind(DeviceDiscoveryServiceClient.class).to(DeviceDiscoveryServiceClientImpl.class).in(Singleton.class);
     }
-
-
 }
