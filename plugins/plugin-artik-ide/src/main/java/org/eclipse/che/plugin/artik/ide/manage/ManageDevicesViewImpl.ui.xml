@@ -168,7 +168,7 @@
                     <g:TextBox width="100%" height="14px" ui:field="userName" tabIndex="0"/>
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewPassword}" addStyleNames="{style.label}"/>
-                    <g:PasswordTextBox width="100%" height="14px" ui:field="password" tabIndex="0"/>
+                    <g:PasswordTextBox width="100%" height="18px" ui:field="password" tabIndex="0"/>
 
                     <g:FlowPanel ui:field="footer" styleName="{style.footer}" />
 
