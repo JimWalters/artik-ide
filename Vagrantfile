@@ -1,6 +1,8 @@
 Vagrant.configure(2) do |config|
-  config.vm.box = "boxcutter/centos71-docker"
+  config.vm.box = "centos71-docker-java-v1.0"
+  config.vm.box_url = "https://install.codenvycorp.com/centos71-docker-java-v1.0.box"
   config.vm.box_download_insecure = true
+  config.ssh.insert_key = false
   config.vm.network :private_network, ip: "192.168.28.28"
   config.vm.define "artik" do |artik|
   end
@@ -16,14 +18,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     usermod -aG docker vagrant &>/dev/null
-    echo "."
-    echo "."
-    echo "ARTIK IDE: INSTALLING JAVA"
-    echo "."
-    echo "."
-    curl -H "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" -L -o jdk8-linux-x64.rpm "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-linux-x64.rpm"
-    yum localinstall -y jdk8-linux-x64.rpm &>/dev/null
-
     echo "."
     echo "."
     echo "ARTIK IDE: DOWNLOADING ARTIK IDE"
