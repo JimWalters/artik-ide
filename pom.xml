@@ -20,7 +20,7 @@
         <version>4.2.0</version>
     </parent>
     <artifactId>artik-ide-parent</artifactId>
-    <version>4.2.0-RC1-SNAPSHOT</version>
+    <version>4.2.0</version>
     <packaging>pom</packaging>
     <name>Artik IDE :: Parent</name>
     <modules>
@@ -30,7 +30,7 @@
     <scm>
         <connection>scm:git:git@github.com:codenvy/artik-ide.git</connection>
         <developerConnection>scm:git:git@github.com:codenvy/artik-ide.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>4.2.0</tag>
         <url>https://github.com/codenvy/artik-ide</url>
     </scm>
     <properties>
