@@ -3,7 +3,7 @@
 [![Eclipse License](http://img.shields.io/badge/license-Eclipse-brightgreen.svg)](https://github.com/codenvy/che/blob/master/LICENSE)
 [![Build Status](http://ci.codenvy-dev.com/jenkins/buildStatus/icon?job=che-ci-master)](http://ci.codenvy-dev.com/jenkins/job/che-ci-master)
 
-https://www.eclipse.org/che/artik/. IDE for Samsung ARTIK platform. 
+https://www.eclipse.org/che/artik/  IDE for Samsung ARTIK platform. 
 
 ![Eclipse Che](https://www.eclipse.org/che/images/artik/hero-home-artik.png "Eclipse Che")
 
