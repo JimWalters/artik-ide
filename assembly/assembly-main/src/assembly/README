@@ -17,11 +17,12 @@ Requirements
  *  Java Platform, Standard Edition 8 Development Kit.
  *  Apache Maven version 3.3.1+.
  *  Docker 1.10+.
+ See https://eclipse-che.readme.io/docs/download-artik-ide#packages
 
 ===============
 Getting Started
 ===============
-See eclipse.org/che/artik
+See https://eclipse-che.readme.io/docs/samsung-artik-ide-getting-started
 
 =============
 Contributing
@@ -31,6 +32,5 @@ See github.com/codenvy/artik-ide/CONTRIBUTING.md
 ==============
 Documentation
 ==============
-TODO: Update
-See eclipse-che.readme.io
+See https://eclipse-che.readme.io/docs/samsung-artik-ide-getting-started#3-create-workspaces-and-projects
 
