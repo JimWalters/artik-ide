@@ -34,16 +34,6 @@
             <type>zip</type>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.che.core</groupId>
-            <artifactId>che-core-ide-stacks</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.core</groupId>
-            <artifactId>che-core-ide-templates</artifactId>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>org.eclipse.che.dashboard</groupId>
             <artifactId>che-dashboard-war</artifactId>
             <type>war</type>
@@ -69,12 +59,6 @@
             <artifactId>che-websocket-terminal</artifactId>
             <type>zip</type>
             <classifier>linux_arm7</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.plugin</groupId>
-            <artifactId>che-plugin-sdk-tools</artifactId>
-            <type>jar</type>
-            <classifier>jar-with-dependencies</classifier>
         </dependency>
     </dependencies>
     <build>
