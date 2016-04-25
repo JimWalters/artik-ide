@@ -58,6 +58,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.eclipse.che.api.core.model.machine.MachineStatus.CREATING;
 import static org.eclipse.che.api.core.model.machine.MachineStatus.RUNNING;
 
 /**
@@ -751,24 +752,34 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
      * Ensures machine is started.
      */
     private void onConnected(final String machineId) {
-        machineService.getMachine(machineId).then(new Operation<MachineDto>() {
+        // There is a little bug in machine service on the server side.
+        // The machine info is updated with a little delay after running a machine.
+        // Using timer must fix the problem.
+        new Timer() {
             @Override
-            public void apply(MachineDto machineDto) throws OperationException {
-                if (machineDto.getStatus() == RUNNING) {
-                    eventBus.fireEvent(new MachineStateEvent(machineDto, MachineStateEvent.MachineAction.RUNNING));
-                    connectNotification.setTitle(locale.deviceConnectSuccess(machineDto.getConfig().getName()));
-                    connectNotification.setStatus(StatusNotification.Status.SUCCESS);
-                    updateDevices(machineDto.getConfig().getName());
-                } else {
-                    onConnectingFailed(null);
-                }
+            public void run() {
+                machineService.getMachine(machineId).then(new Operation<MachineDto>() {
+                    @Override
+                    public void apply(MachineDto machineDto) throws OperationException {
+                        if (machineDto.getStatus() == RUNNING) {
+                            eventBus.fireEvent(new MachineStateEvent(machineDto, MachineStateEvent.MachineAction.RUNNING));
+                            connectNotification.setTitle(locale.deviceConnectSuccess(machineDto.getConfig().getName()));
+                            connectNotification.setStatus(StatusNotification.Status.SUCCESS);
+                            updateDevices(machineDto.getConfig().getName());
+                        } else if (machineDto.getStatus() == CREATING) {
+                            onConnected(machineId);
+                        } else {
+                            onConnectingFailed(null);
+                        }
+                    }
+                }).catchError(new Operation<PromiseError>() {
+                    @Override
+                    public void apply(PromiseError arg) throws OperationException {
+                        onConnectingFailed(null);
+                    }
+                });
             }
-        }).catchError(new Operation<PromiseError>() {
-            @Override
-            public void apply(PromiseError arg) throws OperationException {
-                onConnectingFailed(null);
-            }
-        });
+        }.schedule(500);
     }
 
     /**
