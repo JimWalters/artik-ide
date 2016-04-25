@@ -17,7 +17,7 @@
     <parent>
         <artifactId>che-parent</artifactId>
         <groupId>org.eclipse.che</groupId>
-        <version>4.2.0-RC1-SNAPSHOT</version>
+        <version>4.2.0</version>
     </parent>
     <artifactId>artik-ide-parent</artifactId>
     <version>4.2.0-RC1-SNAPSHOT</version>
@@ -34,7 +34,7 @@
         <url>https://github.com/codenvy/artik-ide</url>
     </scm>
     <properties>
-        <che.version>4.2.0-RC1-SNAPSHOT</che.version>
+        <che.version>4.2.0</che.version>
         <dto-generator-out-directory>${project.build.directory}/generated-sources/dto/</dto-generator-out-directory>
         <license_contributor>Codenvy, S.A. - Initial implementation</license_contributor>
         <license_contributor2>Samsung Electronics Co., Ltd. - Initial implementation</license_contributor2>
