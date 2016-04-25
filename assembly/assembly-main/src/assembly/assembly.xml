@@ -91,15 +91,6 @@
             <useProjectArtifact>false</useProjectArtifact>
             <unpack>false</unpack>
             <outputDirectory>sdk</outputDirectory>
-            <outputFileNameMapping>che-plugin-sdk-tools.jar</outputFileNameMapping>
-            <includes>
-                <include>org.eclipse.che.plugin:che-plugin-sdk-tools</include>
-            </includes>
-        </dependencySet>
-        <dependencySet>
-            <useProjectArtifact>false</useProjectArtifact>
-            <unpack>false</unpack>
-            <outputDirectory>sdk</outputDirectory>
             <outputFileNameMapping>che-plugin-sdk-logger.jar</outputFileNameMapping>
             <includes>
                 <include>ch.qos.logback:logback-classic</include>
