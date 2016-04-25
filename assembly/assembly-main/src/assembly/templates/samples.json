@@ -46,6 +46,29 @@
         "attributes": {
           "previewUrl": ""
         }
+      },
+      {
+        "name": "startgdb",
+        "type": "custom",
+        "commandLine": "gdbserver :1234 /root/blink",
+        "attributes": {
+          "previewUrl": ""
+        }
+      },
+      {
+        "name": "stoptgdb",
+        "type": "custom",
+        "commandLine": "process=$(ps ax | grep \"[g]dbserver\" | awk {'print $1;}')
+        if [[ $process ]]; then
+          echo 'Stopping GDB server...'
+          kill $process
+          echo 'GDB server stopped'
+        else
+          echo 'GDB server is not running'
+        fi",
+        "attributes": {
+          "previewUrl": ""
+        }
       }
     ],
     "links": [],
@@ -75,6 +98,29 @@
         "name": "build",
         "type": "custom",
         "commandLine": "cd ${current.project.path} && $CC -g -o button button.c",
+        "attributes": {
+          "previewUrl": ""
+        }
+      },
+      {
+        "name": "startgdb",
+        "type": "custom",
+        "commandLine": "gdbserver :1234 /root/button",
+        "attributes": {
+          "previewUrl": ""
+        }
+      },
+      {
+        "name": "stoptgdb",
+        "type": "custom",
+        "commandLine": "process=$(ps ax | grep \"[g]dbserver\" | awk {'print $1;}')
+        if [[ $process ]]; then
+          echo 'Stopping GDB server...'
+          kill $process
+          echo 'GDB server stopped'
+        else
+          echo 'GDB server is not running'
+        fi",
         "attributes": {
           "previewUrl": ""
         }
