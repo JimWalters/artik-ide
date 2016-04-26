@@ -62,7 +62,7 @@ Vagrant.configure(2) do |config|
     echo "."
     echo "."
     curl -O "https://install.codenvycorp.com/artik/samsung-artik-ide-latest.tar.gz"
-    tar xvfz samsung-artik-ide-nightly.tar.gz &>/dev/null
+    tar xvfz samsung-artik-ide-latest.tar.gz &>/dev/null
     sudo chown -R vagrant:vagrant * &>/dev/null
     export JAVA_HOME=/usr &>/dev/null
 
