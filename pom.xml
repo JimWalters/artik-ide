@@ -91,7 +91,7 @@
             <dependency>
                 <groupId>org.eclipse.che.plugin</groupId>
                 <artifactId>artik-ide-plugin-shared</artifactId>
-                <version>${che.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.che</groupId>
