@@ -378,34 +378,23 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
             return;
         }
 
-        view.enableConnectButton(!selectedDevice.isDirty());
-
         view.setConnectButtonText(selectedDevice.isConnected() ? "Disconnect" : "Connect");
 
         view.enableCancelButton(selectedDevice.isDirty());
 
-        if (StringUtils.isNullOrEmpty(view.getDeviceName()) ||
-                StringUtils.isNullOrEmpty(view.getHost()) ||
-                StringUtils.isNullOrEmpty(view.getPort())) {
-            view.enableSaveButton(false);
-        } else {
-            view.enableSaveButton(selectedDevice.isDirty());
-        }
-    }
+        view.enableEditing(!selectedDevice.isConnected());
 
-    @Override
-    public void onSaveClicked() {
-        // Save only SSH type
-        if (!ARTIK_CATEGORY.equals(selectedDevice.getType())) {
+        if (selectedDevice.isConnected()) {
+            view.enableConnectButton(true);
             return;
         }
 
-        if (selectedDevice.getRecipe() == null) {
-            createDevice();
-        } else {
-            updateDevice();
-        }
+        boolean isNotValid = StringUtils.isNullOrEmpty(view.getDeviceName()) ||
+                          StringUtils.isNullOrEmpty(view.getHost()) ||
+                          StringUtils.isNullOrEmpty(view.getPort());
+        view.enableConnectButton(!isNotValid);
     }
+
 
     /**
      * Creates a new device connection.
@@ -488,7 +477,8 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         view.selectDevice(selectedDevice);
 
         //updateButtons();
-        notificationManager.notify(locale.deviceSaveSuccess(), StatusNotification.Status.SUCCESS, true);
+        //notificationManager.notify(locale.deviceSaveSuccess(), StatusNotification.Status.SUCCESS, true);
+        connect();
     }
 
     @Override
@@ -511,14 +501,27 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
 
     @Override
     public void onConnectClicked() {
-        if (selectedDevice == null || selectedDevice.getRecipe() == null) {
+        if (selectedDevice == null) {
             return;
         }
 
         if (selectedDevice.isConnected()) {
             disconnect();
         } else {
-            connect();
+            saveDeviceChanges();
+        }
+    }
+
+    private void saveDeviceChanges() {
+        // Save only Artik type
+        if (!ARTIK_CATEGORY.equals(selectedDevice.getType())) {
+            return;
+        }
+
+        if (selectedDevice.getRecipe() == null) {
+            createDevice();
+        } else {
+            updateDevice();
         }
     }
 
@@ -779,7 +782,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
                     }
                 });
             }
-        }.schedule(500);
+        }.schedule(1000);
     }
 
     /**
