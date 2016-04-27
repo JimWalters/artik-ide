@@ -726,7 +726,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
                 dtoUnmarshallerFactory.newWSUnmarshaller(MachineStatusEvent.class)) {
             @Override
             protected void onMessageReceived(MachineStatusEvent event) {
-                if (MachineStatusEvent.EventType.RUNNING == event.getEventType()) {
+                if (MachineStatusEvent.EventType.RUNNING == event.getEventType() || MachineStatusEvent.EventType.CREATING == event.getEventType()) {
                     onConnected(event.getMachineId());
                 } else if (MachineStatusEvent.EventType.ERROR == event.getEventType()) {
                     unsubscribeFromMachineChannel(event.getMachineName());
