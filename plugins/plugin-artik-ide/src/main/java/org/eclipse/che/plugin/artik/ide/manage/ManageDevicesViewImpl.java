@@ -476,7 +476,7 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
     @Override
     public void enableEditing(boolean enable) {
         deviceName.setEnabled(enable);
-        host.getElement().setAttribute("disabled", String.valueOf(!enable));
+        host.getElement().setAttribute("disable", String.valueOf(!enable));
         port.setEnabled(enable);
         userName.setEnabled(enable);
         password.setEnabled(enable);
