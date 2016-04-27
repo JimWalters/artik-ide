@@ -109,11 +109,7 @@
             margin-right: 0px;
         }
 
-        .listbox {
-            background-color: textFieldBackgroundColor !important;
-        }
-
-        .listbox[disabled=true] {
+        .listbox[disable=true] {
             background-color: textFieldDisabledBackgroundColor;
         }
 
@@ -121,7 +117,7 @@
             box-sizing: border-box;
         }
 
-        .listbox[disabled=true] input {
+        .listbox[disable=true] input {
             color: textFieldDisabledColor;
             background-color: textFieldDisabledBackgroundColor;
         }
