@@ -154,14 +154,6 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
     String getPassword();
 
     /**
-     * Enables or disables Save button.
-     *
-     * @param enable
-     *          enabled state
-     */
-    void enableSaveButton(boolean enable);
-
-    /**
      * Enables or disables Cancel button.
      *
      * @param enable
@@ -174,6 +166,13 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
      * @param enable
      */
     void enableConnectButton(boolean enable);
+
+    /**
+     * Enables or disables the editing of inputs.
+     * @param enable
+     */
+    void enableEditing(boolean enable);
+
 
     /**
      * Changes the text of Connect button.
@@ -212,8 +211,6 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
         void onUserNameChanged(String value);
 
         void onPasswordChanged(String value);
-
-        void onSaveClicked();
 
         void onCancelClicked();
 

@@ -118,7 +118,6 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
 
     private Button closeButton;
 
-    private Button saveButton;
     private Button cancelButton;
     private Button connectButton;
 
@@ -162,23 +161,6 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
                                    });
         addButtonToFooter(closeButton);
 
-        saveButton = createButton(coreLocale.save(), "devices.button.save", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                delegate.onSaveClicked();
-            }
-        });
-        saveButton.addStyleName(this.resources.windowCss().primaryButton());
-        footer.add(saveButton);
-
-        cancelButton = createButton(coreLocale.cancel(), "devices.button.cancel", new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent event) {
-                delegate.onCancelClicked();
-            }
-        });
-        footer.add(cancelButton);
-
         connectButton = createButton("Connect", "devices.button.connect", new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
@@ -188,6 +170,14 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
         connectButton.addStyleName(this.resources.windowCss().primaryButton());
         connectButton.addStyleName(resources.Css().buttonLoader());
         footer.add(connectButton);
+
+        cancelButton = createButton(coreLocale.cancel(), "devices.button.cancel", new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                delegate.onCancelClicked();
+            }
+        });
+        footer.add(cancelButton);
 
         deviceName.addKeyUpHandler(new KeyUpHandler() {
             @Override
@@ -474,11 +464,6 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
     }
 
     @Override
-    public void enableSaveButton(boolean enable) {
-        saveButton.setEnabled(enable);
-    }
-
-    @Override
     public void enableCancelButton(boolean enable) {
         cancelButton.setEnabled(enable);
     }
@@ -486,6 +471,15 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
     @Override
     public void enableConnectButton(boolean enable) {
         connectButton.setEnabled(enable);
+    }
+
+    @Override
+    public void enableEditing(boolean enable) {
+        deviceName.setEnabled(enable);
+        host.getElement().setAttribute("disabled", String.valueOf(!enable));
+        port.setEnabled(enable);
+        userName.setEnabled(enable);
+        password.setEnabled(enable);
     }
 
     @Override
