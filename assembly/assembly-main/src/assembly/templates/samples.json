@@ -56,7 +56,7 @@
         }
       },
       {
-        "name": "stoptgdb",
+        "name": "stopgdb",
         "type": "custom",
         "commandLine": "process=$(ps ax | grep \"[g]dbserver\" | awk {'print $1;}')
         if [[ $process ]]; then
@@ -111,7 +111,7 @@
         }
       },
       {
-        "name": "stoptgdb",
+        "name": "stopgdb",
         "type": "custom",
         "commandLine": "process=$(ps ax | grep \"[g]dbserver\" | awk {'print $1;}')
         if [[ $process ]]; then
