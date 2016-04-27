@@ -109,10 +109,21 @@
             margin-right: 0px;
         }
 
-        .footer button:last-child {
-            position: absolute;
-            left: 0px;
-            top: 0px;
+        .listbox {
+            background-color: textFieldBackgroundColor !important;
+        }
+
+        .listbox[disabled=true] {
+            background-color: textFieldDisabledBackgroundColor;
+        }
+
+        .listbox input {
+            box-sizing: border-box;
+        }
+
+        .listbox[disabled=true] input {
+            color: textFieldDisabledColor;
+            background-color: textFieldDisabledBackgroundColor;
         }
     </ui:style>
 
@@ -145,7 +156,7 @@
                     <g:TextBox width="100%" height="14px" ui:field="deviceName" tabIndex="0"/>
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewHost}" addStyleNames="{style.label} {style.delimiter}"/>
-                    <che:CustomComboBox width="100%" ui:field="host" tabIndex="0"/>
+                    <che:CustomComboBox width="100%" ui:field="host" tabIndex="0" addStyleNames="{style.listbox}"/>
                     <g:Label width="100%" ui:field="noHostsLabel" text="{locale.manageArtikDevicesViewNoHosts}" addStyleNames="{style.label}"/>
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewPort}" addStyleNames="{style.label}"/>
