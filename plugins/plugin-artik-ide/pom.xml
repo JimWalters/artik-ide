@@ -17,10 +17,10 @@
     <parent>
         <artifactId>artik-ide-plugin-parent</artifactId>
         <groupId>org.eclipse.che.plugin</groupId>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.2.1</version>
     </parent>
     <artifactId>artik-ide-plugin-ide</artifactId>
-    <version>4.2.1-SNAPSHOT</version>
+    <version>4.2.1</version>
     <name>Artik IDE :: Plugin :: Samsung Artik :: IDE Part</name>
     <dependencies>
         <dependency>
