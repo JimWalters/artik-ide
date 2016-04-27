@@ -30,7 +30,7 @@
             <useProjectArtifact>false</useProjectArtifact>
             <unpack>false</unpack>
             <outputDirectory>webapps</outputDirectory>
-            <outputFileNameMapping>ide.war</outputFileNameMapping>
+            <outputFileNameMapping>wsagent.war</outputFileNameMapping>
             <includes>
                 <include>org.eclipse.che:artik-ide-assembly-machine-war</include>
             </includes>
