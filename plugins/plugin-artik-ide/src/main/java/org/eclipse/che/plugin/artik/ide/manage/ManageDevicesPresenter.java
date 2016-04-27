@@ -631,6 +631,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         machineService.destroyMachine(machine.getId()).then(new Operation<Void>() {
             @Override
             public void apply(Void arg) throws OperationException {
+                eventBus.fireEvent(new MachineStateEvent(machine, MachineStateEvent.MachineAction.DESTROYED));
                 notificationManager.notify(locale.deviceDisconnectSuccess(device.getName()), StatusNotification.Status.SUCCESS, true);
                 new Timer() {
                     @Override
