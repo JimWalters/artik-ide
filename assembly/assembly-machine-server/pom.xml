@@ -17,7 +17,7 @@
     <parent>
         <artifactId>artik-ide-assembly-parent</artifactId>
         <groupId>org.eclipse.che</groupId>
-        <version>4.2.2</version>
+        <version>4.2.3-SNAPSHOT</version>
     </parent>
     <artifactId>artik-ide-assembly-machine-server</artifactId>
     <packaging>pom</packaging>
