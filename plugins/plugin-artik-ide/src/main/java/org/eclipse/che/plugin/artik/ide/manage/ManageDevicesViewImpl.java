@@ -35,7 +35,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -43,6 +42,7 @@ import com.google.inject.Singleton;
 import org.eclipse.che.ide.CoreLocalizationConstant;
 import org.eclipse.che.ide.api.icon.IconRegistry;
 import org.eclipse.che.ide.extension.machine.client.command.edit.EditCommandResources;
+import org.eclipse.che.ide.ui.TextBox;
 import org.eclipse.che.ide.ui.Tooltip;
 import org.eclipse.che.ide.ui.list.CategoriesList;
 import org.eclipse.che.ide.ui.list.Category;
@@ -498,4 +498,33 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
         deviceName.selectAll();
     }
 
+    @Override
+    public void markDeviceNameInvalid() {
+        deviceName.markInvalid();
+    }
+
+    @Override
+    public void unmarkDeviceName() {
+        deviceName.unmark();
+    }
+
+    @Override
+    public void markHostInvalid() {
+        host.getElement().setAttribute("error", "");
+    }
+
+    @Override
+    public void unmarkHost() {
+        host.getElement().removeAttribute("error");
+    }
+
+    @Override
+    public void markPortInvalid() {
+        port.markInvalid();
+    }
+
+    @Override
+    public void unmarkPort() {
+        port.unmark();
+    }
 }
