@@ -70,6 +70,7 @@ import static org.eclipse.che.api.core.model.machine.MachineStatus.RUNNING;
 public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate, WsAgentStateHandler {
     public final static String ARTIK_CATEGORY = "artik";
     public final static String SSH_CATEGORY   = "ssh-config";
+    public final static String DEFAULT_NAME   = "artik_device";
 
     private final ManageDevicesView            view;
     private final RecipeServiceClient          recipeServiceClient;
@@ -281,7 +282,9 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
 
     @Override
     public void onAddDevice(String category) {
-        Device device = new Device("artik_device", ARTIK_CATEGORY);
+        this.selectedDevice = null;
+        String deviceName = generateDeviceName();
+        Device device = new Device(deviceName, ARTIK_CATEGORY);
         device.setHost("");
         device.setPort("22");
         device.setUserName("root");
@@ -292,6 +295,19 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
 
         view.showDevices(devices);
         view.selectDevice(device);
+    }
+
+    /**
+     *  Generates device name base on existing ones.
+     *
+     * @return generated name
+     */
+    private String generateDeviceName() {
+        int i = 1;
+        while (checkDeviceNameExists(DEFAULT_NAME + "_" + i)) {
+            i++;
+        }
+        return DEFAULT_NAME + "_" + i;
     }
 
     @Override
@@ -378,33 +394,59 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
             return;
         }
 
-        view.enableConnectButton(!selectedDevice.isDirty());
-
         view.setConnectButtonText(selectedDevice.isConnected() ? "Disconnect" : "Connect");
 
         view.enableCancelButton(selectedDevice.isDirty());
 
-        if (StringUtils.isNullOrEmpty(view.getDeviceName()) ||
-                StringUtils.isNullOrEmpty(view.getHost()) ||
-                StringUtils.isNullOrEmpty(view.getPort())) {
-            view.enableSaveButton(false);
-        } else {
-            view.enableSaveButton(selectedDevice.isDirty());
-        }
-    }
+        view.enableEditing(!selectedDevice.isConnected());
 
-    @Override
-    public void onSaveClicked() {
-        // Save only SSH type
-        if (!ARTIK_CATEGORY.equals(selectedDevice.getType())) {
+        if (selectedDevice.isConnected()) {
+            view.enableConnectButton(true);
             return;
         }
 
-        if (selectedDevice.getRecipe() == null) {
-            createDevice();
+        boolean deviceAlreadyExists = checkDeviceNameExists(view.getDeviceName());
+
+        boolean isNotValid = StringUtils.isNullOrEmpty(view.getDeviceName()) ||
+                          StringUtils.isNullOrEmpty(view.getHost()) ||
+                          StringUtils.isNullOrEmpty(view.getPort()) || deviceAlreadyExists;
+        view.enableConnectButton(!isNotValid);
+
+        // check host is not empty
+        if (view.getHost().isEmpty()) {
+            view.markHostInvalid();
         } else {
-            updateDevice();
+            view.unmarkHost();
         }
+
+        // check port is not empty
+        if (view.getPort().isEmpty()) {
+            view.markPortInvalid();
+        } else {
+            view.unmarkPort();
+        }
+
+        // check device name is not empty and doesn't exist
+        if (view.getDeviceName().isEmpty() || deviceAlreadyExists) {
+            view.markDeviceNameInvalid();
+        } else {
+            view.unmarkDeviceName();
+        }
+    }
+
+    /**
+     * Checks device name on existence.
+     *
+     * @param deviceName name of the device to check on existence
+     * @return boolean <code>true</code> id name already exists
+     */
+    private boolean checkDeviceNameExists(String deviceName) {
+        for (Device device : devices) {
+            if (device != selectedDevice && device.getName().equals(deviceName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -487,8 +529,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         view.showDevices(devices);
         view.selectDevice(selectedDevice);
 
-        //updateButtons();
-        notificationManager.notify(locale.deviceSaveSuccess(), StatusNotification.Status.SUCCESS, true);
+        connect();
     }
 
     @Override
@@ -511,14 +552,27 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
 
     @Override
     public void onConnectClicked() {
-        if (selectedDevice == null || selectedDevice.getRecipe() == null) {
+        if (selectedDevice == null) {
             return;
         }
 
         if (selectedDevice.isConnected()) {
             disconnect();
         } else {
-            connect();
+            saveDeviceChanges();
+        }
+    }
+
+    private void saveDeviceChanges() {
+        // Save only Artik type
+        if (!ARTIK_CATEGORY.equals(selectedDevice.getType())) {
+            return;
+        }
+
+        if (selectedDevice.getRecipe() == null) {
+            createDevice();
+        } else {
+            updateDevice();
         }
     }
 
@@ -779,7 +833,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
                     }
                 });
             }
-        }.schedule(500);
+        }.schedule(1000);
     }
 
     /**

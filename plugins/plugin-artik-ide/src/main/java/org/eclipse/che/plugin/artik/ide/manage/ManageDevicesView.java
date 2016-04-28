@@ -154,14 +154,6 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
     String getPassword();
 
     /**
-     * Enables or disables Save button.
-     *
-     * @param enable
-     *          enabled state
-     */
-    void enableSaveButton(boolean enable);
-
-    /**
      * Enables or disables Cancel button.
      *
      * @param enable
@@ -176,6 +168,13 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
     void enableConnectButton(boolean enable);
 
     /**
+     * Enables or disables the editing of inputs.
+     * @param enable
+     */
+    void enableEditing(boolean enable);
+
+
+    /**
      * Changes the text of Connect button.
      *
      * @param text
@@ -187,6 +186,36 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
      * Focuses and selects all the text in the Name field.
      */
     void selectDeviceName();
+
+    /**
+     * Adds error mark to device name field.
+     */
+    void markDeviceNameInvalid();
+
+    /**
+     * Removes error mark from device name field.
+     */
+    void unmarkDeviceName();
+
+    /**
+     * Adds error mark to host field.
+     */
+    void markHostInvalid();
+
+    /**
+     * Removes error mark from host field.
+     */
+    void unmarkHost();
+
+    /**
+     * Adds error mark to port field.
+     */
+    void markPortInvalid();
+
+    /**
+     * Removes error mark from port field.
+     */
+    void unmarkPort();
 
 
     interface ActionDelegate {
@@ -212,8 +241,6 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
         void onUserNameChanged(String value);
 
         void onPasswordChanged(String value);
-
-        void onSaveClicked();
 
         void onCancelClicked();
 

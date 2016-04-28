@@ -14,6 +14,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:ide='urn:import:org.eclipse.che.ide.ui'
              xmlns:che='urn:import:org.eclipse.che.ide.ui.listbox'>
 
     <ui:with field='locale' type='org.eclipse.che.plugin.artik.ide.ArtikLocalizationConstant'/>
@@ -109,10 +110,21 @@
             margin-right: 0px;
         }
 
-        .footer button:last-child {
-            position: absolute;
-            left: 0px;
-            top: 0px;
+        .listbox[disable=true] {
+            background-color: textFieldDisabledBackgroundColor;
+        }
+
+        .listbox input {
+            box-sizing: border-box;
+        }
+
+        .listbox[disable=true] input {
+            color: textFieldDisabledColor;
+            background-color: textFieldDisabledBackgroundColor;
+        }
+
+        .listbox[error] {
+            border-bottom: 1px solid errorColor !important;
         }
     </ui:style>
 
@@ -142,17 +154,17 @@
                 <g:FlowPanel ui:field="propertiesPanel" styleName="{style.propertiesPanel}" visible="false">
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewName}" addStyleNames="{style.label} {style.delimiter}"/>
-                    <g:TextBox width="100%" height="14px" ui:field="deviceName" tabIndex="0"/>
+                    <ide:TextBox width="100%" height="14px" ui:field="deviceName" tabIndex="0"/>
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewHost}" addStyleNames="{style.label} {style.delimiter}"/>
-                    <che:CustomComboBox width="100%" ui:field="host" tabIndex="0"/>
+                    <che:CustomComboBox width="100%" ui:field="host" tabIndex="0" addStyleNames="{style.listbox}"/>
                     <g:Label width="100%" ui:field="noHostsLabel" text="{locale.manageArtikDevicesViewNoHosts}" addStyleNames="{style.label}"/>
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewPort}" addStyleNames="{style.label}"/>
-                    <g:TextBox width="100%" height="14px" ui:field="port" tabIndex="0"/>
+                    <ide:TextBox width="100%" height="14px" ui:field="port" tabIndex="0"/>
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewLogin}" addStyleNames="{style.label} {style.delimiter}"/>
-                    <g:TextBox width="100%" height="14px" ui:field="userName" tabIndex="0"/>
+                    <ide:TextBox width="100%" height="14px" ui:field="userName" tabIndex="0"/>
 
                     <g:Label width="100%" text="{locale.manageArtikDevicesViewPassword}" addStyleNames="{style.label}"/>
                     <g:PasswordTextBox width="100%" height="18px" ui:field="password" tabIndex="0"/>
