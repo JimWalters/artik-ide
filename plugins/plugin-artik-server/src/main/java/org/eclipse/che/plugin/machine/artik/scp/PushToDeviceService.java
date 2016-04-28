@@ -57,7 +57,6 @@ import java.util.stream.Collectors;
 @Singleton
 @Beta
 public class PushToDeviceService extends Service {
-    private static final String DEFAULT_SSH_PORT          = "22";
     private static final String DEFAULT_PROJECTS_LOCATION = "/projects";
 
     @Inject
@@ -146,8 +145,10 @@ public class PushToDeviceService extends Service {
 
         CommandLine commandLine = new CommandLine("sshpass -p", password);
         commandLine.add("scp -o StrictHostKeyChecking=no")
-                   .add(Files.isDirectory(Paths.get(filePath)) ? "-r " : "", filePath)
-                   .add(username + '@' + host + ':' + (port.equals(DEFAULT_SSH_PORT) ? "" : port + ':') + targetPath);
+                .add("-P")
+                .add(port)
+                .add(Files.isDirectory(Paths.get(filePath)) ? "-r " : "", filePath)
+                .add(username + '@' + host + ':' + targetPath);
         return commandLine;
     }
 
