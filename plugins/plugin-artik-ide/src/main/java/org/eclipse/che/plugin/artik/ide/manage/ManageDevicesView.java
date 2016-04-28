@@ -187,6 +187,36 @@ public interface ManageDevicesView extends View<ManageDevicesView.ActionDelegate
      */
     void selectDeviceName();
 
+    /**
+     * Adds error mark to device name field.
+     */
+    void markDeviceNameInvalid();
+
+    /**
+     * Removes error mark from device name field.
+     */
+    void unmarkDeviceName();
+
+    /**
+     * Adds error mark to host field.
+     */
+    void markHostInvalid();
+
+    /**
+     * Removes error mark from host field.
+     */
+    void unmarkHost();
+
+    /**
+     * Adds error mark to port field.
+     */
+    void markPortInvalid();
+
+    /**
+     * Removes error mark from port field.
+     */
+    void unmarkPort();
+
 
     interface ActionDelegate {
 
