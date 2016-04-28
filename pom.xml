@@ -21,7 +21,7 @@
     </parent>
     <groupId>org.eclipse.che</groupId>
     <artifactId>artik-ide-parent</artifactId>
-    <version>4.2.2-SNAPSHOT</version>
+    <version>4.2.2</version>
     <packaging>pom</packaging>
     <name>Artik IDE :: Parent</name>
     <modules>
@@ -31,7 +31,7 @@
     <scm>
         <connection>scm:git:git@github.com:codenvy/artik-ide.git</connection>
         <developerConnection>scm:git:git@github.com:codenvy/artik-ide.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>4.2.2</tag>
         <url>https://github.com/codenvy/artik-ide</url>
     </scm>
     <properties>
