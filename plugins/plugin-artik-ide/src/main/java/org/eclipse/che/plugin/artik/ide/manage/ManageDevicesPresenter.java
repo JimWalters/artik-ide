@@ -71,6 +71,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
     public final static String ARTIK_CATEGORY = "artik";
     public final static String SSH_CATEGORY   = "ssh-config";
     public final static String DEFAULT_NAME   = "artik_device";
+    public final static String VALID_NAME     = "[\\w-]*";
 
     private final ManageDevicesView            view;
     private final RecipeServiceClient          recipeServiceClient;
@@ -304,7 +305,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
      */
     private String generateDeviceName() {
         int i = 1;
-        while (checkDeviceNameExists(DEFAULT_NAME + "_" + i)) {
+        while (isDeviceNameExists(DEFAULT_NAME + "_" + i)) {
             i++;
         }
         return DEFAULT_NAME + "_" + i;
@@ -405,9 +406,10 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
             return;
         }
 
-        boolean deviceAlreadyExists = checkDeviceNameExists(view.getDeviceName());
+        boolean deviceAlreadyExists = isDeviceNameExists(view.getDeviceName());
+        boolean deviceNameValid = !StringUtils.isNullOrEmpty(view.getDeviceName()) && view.getDeviceName().matches(VALID_NAME);
 
-        boolean isNotValid = StringUtils.isNullOrEmpty(view.getDeviceName()) ||
+        boolean isNotValid = !deviceNameValid ||
                           StringUtils.isNullOrEmpty(view.getHost()) ||
                           StringUtils.isNullOrEmpty(view.getPort()) || deviceAlreadyExists;
         view.enableConnectButton(!isNotValid);
@@ -427,7 +429,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         }
 
         // check device name is not empty and doesn't exist
-        if (view.getDeviceName().isEmpty() || deviceAlreadyExists) {
+        if (!deviceNameValid || deviceAlreadyExists) {
             view.markDeviceNameInvalid();
         } else {
             view.unmarkDeviceName();
@@ -440,7 +442,7 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
      * @param deviceName name of the device to check on existence
      * @return boolean <code>true</code> id name already exists
      */
-    private boolean checkDeviceNameExists(String deviceName) {
+    private boolean isDeviceNameExists(String deviceName) {
         for (Device device : devices) {
             if (device != selectedDevice && device.getName().equals(deviceName)) {
                 return true;
