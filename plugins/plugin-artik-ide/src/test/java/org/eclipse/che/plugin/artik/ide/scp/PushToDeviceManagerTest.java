@@ -25,6 +25,7 @@ import org.eclipse.che.ide.api.action.ActionManager;
 import org.eclipse.che.ide.api.action.DefaultActionGroup;
 import org.eclipse.che.ide.api.app.AppContext;
 import org.eclipse.che.ide.api.notification.NotificationManager;
+import org.eclipse.che.ide.api.notification.StatusNotification;
 import org.eclipse.che.ide.extension.machine.client.machine.MachineStateEvent;
 import org.eclipse.che.plugin.artik.ide.ArtikLocalizationConstants;
 import org.eclipse.che.plugin.artik.ide.scp.action.ChooseTargetAction;
@@ -147,7 +148,7 @@ public class PushToDeviceManagerTest {
         voidCaptor.getValue().apply(null);
 
         verify(locale).pushToDeviceSuccess("file", "/destination/path");
-        verify(notificationManager).notify(anyString(), eq(SUCCESS), eq(true));
+        verify(notificationManager).notify(anyString(), eq(SUCCESS), eq(StatusNotification.DisplayMode.FLOAT_MODE));
     }
 
     private void pushToDevice() throws OperationException {
@@ -171,7 +172,7 @@ public class PushToDeviceManagerTest {
         errorCaptor.getValue().apply(mock(PromiseError.class));
 
         verify(locale).pushToDeviceFail("file", "/destination/path");
-        verify(notificationManager).notify(anyString(), eq(FAIL), eq(true));
+        verify(notificationManager).notify(anyString(), eq(FAIL), eq(StatusNotification.DisplayMode.FLOAT_MODE));
     }
 
     @Test

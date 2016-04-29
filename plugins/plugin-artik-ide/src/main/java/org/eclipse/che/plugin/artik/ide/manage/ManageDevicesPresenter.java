@@ -585,7 +585,8 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
 
         view.setConnectButtonText(null);
 
-        connectNotification = notificationManager.notify(locale.deviceConnectProgress(selectedDevice.getName()), StatusNotification.Status.PROGRESS, true);
+        connectNotification = notificationManager.notify(locale.deviceConnectProgress(selectedDevice.getName()), StatusNotification.Status.PROGRESS,
+                                                         StatusNotification.DisplayMode.FLOAT_MODE);
 
         String recipeURL = selectedDevice.getRecipe().getLink("get recipe script").getHref();
 
@@ -645,13 +646,15 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
             @Override
             public void apply(Void arg) throws OperationException {
                 eventBus.fireEvent(new MachineStateEvent(machine, MachineStateEvent.MachineAction.DESTROYED));
-                notificationManager.notify(locale.deviceDisconnectSuccess(selectedDevice.getName()), StatusNotification.Status.SUCCESS, true);
+                notificationManager.notify(locale.deviceDisconnectSuccess(selectedDevice.getName()), StatusNotification.Status.SUCCESS,
+                                           StatusNotification.DisplayMode.FLOAT_MODE);
                 updateDevices(selectedDevice.getName());
             }
         }).catchError(new Operation<PromiseError>() {
             @Override
             public void apply(PromiseError arg) throws OperationException {
-                notificationManager.notify(locale.deviceDisconnectError(selectedDevice.getName()), StatusNotification.Status.FAIL, true);
+                notificationManager.notify(locale.deviceDisconnectError(selectedDevice.getName()), StatusNotification.Status.FAIL,
+                                           StatusNotification.DisplayMode.FLOAT_MODE);
                 updateDevices(selectedDevice.getName());
             }
         });
@@ -685,7 +688,8 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         machineService.destroyMachine(machine.getId()).then(new Operation<Void>() {
             @Override
             public void apply(Void arg) throws OperationException {
-                notificationManager.notify(locale.deviceDisconnectSuccess(device.getName()), StatusNotification.Status.SUCCESS, true);
+                notificationManager.notify(locale.deviceDisconnectSuccess(device.getName()), StatusNotification.Status.SUCCESS,
+                                           StatusNotification.DisplayMode.FLOAT_MODE);
                 new Timer() {
                     @Override
                     public void run() {
@@ -696,7 +700,8 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
         }).catchError(new Operation<PromiseError>() {
             @Override
             public void apply(PromiseError arg) throws OperationException {
-                notificationManager.notify(locale.deviceDisconnectError(device.getName()), StatusNotification.Status.FAIL, true);
+                notificationManager.notify(locale.deviceDisconnectError(device.getName()), StatusNotification.Status.FAIL,
+                                           StatusNotification.DisplayMode.FLOAT_MODE);
                 updateDevices(device.getName());
             }
         });
@@ -719,7 +724,8 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
                 view.selectDevice(null);
                 view.showHintPanel();
 
-                notificationManager.notify(locale.deviceDeleteSuccess(device.getName()), StatusNotification.Status.SUCCESS, true);
+                notificationManager.notify(locale.deviceDeleteSuccess(device.getName()), StatusNotification.Status.SUCCESS,
+                                           StatusNotification.DisplayMode.FLOAT_MODE);
             }
         });
 

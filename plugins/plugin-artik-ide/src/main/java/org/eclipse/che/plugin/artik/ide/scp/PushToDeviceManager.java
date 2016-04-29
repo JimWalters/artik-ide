@@ -31,6 +31,7 @@ import org.eclipse.che.ide.api.action.DefaultActionGroup;
 import org.eclipse.che.ide.api.app.AppContext;
 import org.eclipse.che.ide.api.constraints.Constraints;
 import org.eclipse.che.ide.api.notification.NotificationManager;
+import org.eclipse.che.ide.api.notification.StatusNotification;
 import org.eclipse.che.ide.extension.machine.client.machine.MachineStateEvent;
 import org.eclipse.che.ide.util.loging.Log;
 import org.eclipse.che.plugin.artik.ide.ArtikLocalizationConstants;
@@ -141,12 +142,12 @@ public class PushToDeviceManager implements MachineStateEvent.Handler {
         promise.then(new Operation<Void>() {
             @Override
             public void apply(Void arg) throws OperationException {
-                notificationManager.notify(locale.pushToDeviceSuccess(fileName, targetPath), SUCCESS, true);
+                notificationManager.notify(locale.pushToDeviceSuccess(fileName, targetPath), SUCCESS, StatusNotification.DisplayMode.FLOAT_MODE);
             }
         }).catchError(new Operation<PromiseError>() {
             @Override
             public void apply(PromiseError error) throws OperationException {
-                notificationManager.notify(locale.pushToDeviceFail(fileName, targetPath), FAIL, true);
+                notificationManager.notify(locale.pushToDeviceFail(fileName, targetPath), FAIL, StatusNotification.DisplayMode.FLOAT_MODE);
             }
         });
     }
