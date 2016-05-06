@@ -8,6 +8,7 @@ Vagrant.configure(2) do |config|
   config.vm.box_download_insecure = true
   config.ssh.insert_key = false
   config.vm.network :private_network, ip: "192.168.28.28"
+  config.vm.synced_folder ".", "/home/vagrant/.che"
   config.vm.define "artik" do |artik|
   end
   config.vm.provider "virtualbox" do |vb|
@@ -15,8 +16,8 @@ Vagrant.configure(2) do |config|
     vb.name = "artik-ide-vm"
     vb.customize ["modifyvm", :id, "--usb", "on"]
     vb.customize ["modifyvm", :id, "--usbehci", "on"]
-    vb.customize ["usbfilter", "add", "0", 
-                  "--target", :id, 
+    vb.customize ["usbfilter", "add", "0",
+                  "--target", :id,
                   "--name", "Artik"]
   end
 
@@ -66,6 +67,13 @@ Vagrant.configure(2) do |config|
     sudo chown -R vagrant:vagrant * &>/dev/null
     export JAVA_HOME=/usr &>/dev/null
 
+    # exporting CHE_LOCAL_CONF_DIR, reconfiguring Che to store workspaces, projects and prefs outside the Tomcat
+    export CHE_LOCAL_CONF_DIR=/home/vagrant/.che &>/dev/null
+    cp /home/vagrant/eclipse-che-*/conf/che.properties /home/vagrant/.che/
+    sed -i 's|${catalina.base}/temp/local-storage|/home/vagrant/.che|' /home/vagrant/.che/che.properties
+    sed -i 's|${che.home}/workspaces|/home/vagrant/.che|' /home/vagrant/.che/che.properties
+    echo 'export CHE_LOCAL_CONF_DIR=/home/vagrant/.che' >> /home/vagrant/.bashrc
+
     echo "."
     echo "."
     echo "ARTIK IDE: DOWNLOADING ARTIK RUNTIME IMAGE"
@@ -87,7 +95,7 @@ Vagrant.configure(2) do |config|
     echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:192.168.28.28 --skip:client -g start
   SHELL
 
-  config.vm.provision "shell" do |s| 
+  config.vm.provision "shell" do |s|
   	s.inline = $script
   	s.args = [$http_proxy, $https_proxy]
   end
@@ -100,5 +108,5 @@ Vagrant.configure(2) do |config|
     echo "."
     echo "."
   SHELL
-  
+
 end
