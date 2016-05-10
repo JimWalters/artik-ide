@@ -1,6 +1,7 @@
 # Set to "<proto>://<user>:<pass>@<host>:<port>"
 $http_proxy  = ""
 $https_proxy = ""
+$che_version = "latest"
 
 Vagrant.configure(2) do |config|
   config.vm.box = "centos71-docker-java-v1.0"
@@ -24,13 +25,14 @@ Vagrant.configure(2) do |config|
   $script = <<-SHELL
     HTTP_PROXY=$1
     HTTPS_PROXY=$2
+    CHE_VERSION=$3
 
     if [ -n "$HTTP_PROXY" ] || [ -n "$HTTPS_PROXY" ]; then
-	    echo "."
+	    echo "-----------------------------------"
 	    echo "."
 	    echo "ARTIK IDE: CONFIGURING SYSTEM PROXY"
 	    echo "."
-	    echo "."
+	    echo "-----------------------------------"
 	    echo 'export HTTP_PROXY="'$HTTP_PROXY'"' >> /home/vagrant/.bashrc
 	    echo 'export HTTPS_PROXY="'$HTTPS_PROXY'"' >> /home/vagrant/.bashrc
 	    source /home/vagrant/.bashrc
@@ -57,13 +59,13 @@ Vagrant.configure(2) do |config|
         systemctl restart docker
     fi
 
-    echo "."
+    echo "--------------------------------"
     echo "."
     echo "ARTIK IDE: DOWNLOADING ARTIK IDE"
     echo "."
-    echo "."
-    curl -O "https://install.codenvycorp.com/artik/samsung-artik-ide-latest.tar.gz"
-    tar xvfz samsung-artik-ide-latest.tar.gz &>/dev/null
+    echo "--------------------------------"
+    curl -O "https://install.codenvycorp.com/artik/samsung-artik-ide-${CHE_VERSION}.tar.gz"
+    tar xvfz samsung-artik-ide-${CHE_VERSION}.tar.gz &>/dev/null
     sudo chown -R vagrant:vagrant * &>/dev/null
     export JAVA_HOME=/usr &>/dev/null
 
@@ -74,39 +76,72 @@ Vagrant.configure(2) do |config|
     sed -i 's|${che.home}/workspaces|/home/vagrant/.che|' /home/vagrant/.che/che.properties
     echo 'export CHE_LOCAL_CONF_DIR=/home/vagrant/.che' >> /home/vagrant/.bashrc
 
-    echo "."
+    echo "------------------------------------------"
     echo "."
     echo "ARTIK IDE: DOWNLOADING ARTIK RUNTIME IMAGE"
+    echo "           950MB: SILENT OUTPUT           "
     echo "."
-    echo "."
-    docker pull codenvy/artik
+    echo "------------------------------------------"
+    docker pull codenvy/artik &>/dev/null
 
+    echo "--------------------------------------"
     echo "."
+    echo "ARTIK IDE: DOWNLOADING DOCKER REGISTRY"
+    echo "           50MB: SILENT OUTPUT        "
     echo "."
-    echo "ARTIK IDE: PREPPING SERVER"
+    echo "--------------------------------------"
+    docker pull registry:2 &>/dev/null
+
+    echo "-------------------------------"
     echo "."
+    echo "ARTIK IDE: PREPPING SERVER ~10s"
     echo "."
+    echo "-------------------------------"
     if [ -n "$HTTP_PROXY" ]; then
         sed -i "s|http.proxy=|http.proxy=${HTTP_PROXY}|" /home/vagrant/eclipse-che-*/conf/che.properties
     fi
     if [ -n "$HTTPS_PROXY" ]; then
         sed -i "s|https.proxy=|https.proxy=${HTTPS_PROXY}|"  /home/vagrant/eclipse-che-*/conf/che.properties
     fi
-    echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:192.168.28.28 --skip:client -g start
+    echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:192.168.28.28 --skip:client -g start &>/dev/null
   SHELL
 
   config.vm.provision "shell" do |s|
   	s.inline = $script
-  	s.args = [$http_proxy, $https_proxy]
+  	s.args = [$http_proxy, $https_proxy, $che_version]
   end
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    echo "."
-    echo "."
-    echo "ARTIK IDE: SERVER BOOTING ~10s"
-    echo "AVAILABLE: http://192.168.28.28:8080"
-    echo "."
-    echo "."
+    
+    counter=0
+    while [ true ]; do
+      curl -v http://192.168.28.28:8080/dashboard &>/dev/null
+      exitcode=$?
+
+      if [ $exitcode == "0" ]; then
+        echo "--------------------------------------"
+        echo "."
+        echo "ARTIK IDE: SERVER BOOTED AND REACHABLE"
+        echo "AVAILABLE: http://192.168.28.28:8080  "
+        echo "."
+        echo "--------------------------------------"
+        exit 0
+      fi 
+
+      # If we are not awake after 30 seconds, restart server
+      if [ $counter == "5" ]; then
+        echo "---------------------------------------------"
+        echo "."
+        echo "ARTIK IDE: SERVER NOT RESPONSIVE -- REBOOTING"
+        echo "."
+        echo "---------------------------------------------"
+        export JAVA_HOME=/usr &>/dev/null
+        echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:192.168.28.28 --skip:client -g start &>/dev/null
+      fi
+
+      let counter=counter+1
+      sleep 5
+    done
   SHELL
 
 end
