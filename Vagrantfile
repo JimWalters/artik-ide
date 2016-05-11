@@ -2,13 +2,14 @@
 $http_proxy  = ""
 $https_proxy = ""
 $che_version = "latest"
+$ip          = "192.168.28.28"
 
 Vagrant.configure(2) do |config|
   config.vm.box = "centos71-docker-java-v1.0"
   config.vm.box_url = "https://install.codenvycorp.com/centos71-docker-java-v1.0.box"
   config.vm.box_download_insecure = true
   config.ssh.insert_key = false
-  config.vm.network :private_network, ip: "192.168.28.28"
+  config.vm.network :private_network, ip: $ip
   config.vm.synced_folder ".", "/home/vagrant/.che"
   config.vm.define "artik" do |artik|
   end
@@ -26,6 +27,7 @@ Vagrant.configure(2) do |config|
     HTTP_PROXY=$1
     HTTPS_PROXY=$2
     CHE_VERSION=$3
+    IP=$4
 
     if [ -n "$HTTP_PROXY" ] || [ -n "$HTTPS_PROXY" ]; then
 	    echo "-----------------------------------"
@@ -103,45 +105,62 @@ Vagrant.configure(2) do |config|
     if [ -n "$HTTPS_PROXY" ]; then
         sed -i "s|https.proxy=|https.proxy=${HTTPS_PROXY}|"  /home/vagrant/eclipse-che-*/conf/che.properties
     fi
-    echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:192.168.28.28 --skip:client -g start &>/dev/null
+    echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:${IP} --skip:client -g start &>/dev/null
   SHELL
 
   config.vm.provision "shell" do |s|
   	s.inline = $script
-  	s.args = [$http_proxy, $https_proxy, $che_version]
+  	s.args = [$http_proxy, $https_proxy, $che_version, $ip]
   end
 
-  config.vm.provision "shell", run: "always", inline: <<-SHELL
-    
+  $script2 = <<-SHELL
+    IP=$1
+
     counter=0
     while [ true ]; do
-      curl -v http://192.168.28.28:8080/dashboard &>/dev/null
+      curl -v http://${IP}:8080/dashboard &>/dev/null
       exitcode=$?
 
       if [ $exitcode == "0" ]; then
         echo "--------------------------------------"
         echo "."
         echo "ARTIK IDE: SERVER BOOTED AND REACHABLE"
-        echo "AVAILABLE: http://192.168.28.28:8080  "
+        echo "AVAILABLE: http://${IP}:8080  "
         echo "."
         echo "--------------------------------------"
         exit 0
       fi 
 
-      # If we are not awake after 30 seconds, restart server
-      if [ $counter == "5" ]; then
+      # If we are not awake after 60 seconds, restart server
+      if [ $counter == "11" ]; then
         echo "---------------------------------------------"
         echo "."
         echo "ARTIK IDE: SERVER NOT RESPONSIVE -- REBOOTING"
         echo "."
         echo "---------------------------------------------"
         export JAVA_HOME=/usr &>/dev/null
-        echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:192.168.28.28 --skip:client -g start &>/dev/null
+        echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:${IP} --skip:client -g start &>/dev/null
+      fi
+
+      # If we are not awake after 180 seconds, restart server
+      if [ $counter == "35" ]; then
+        echo "-------------------------------------------"
+        echo "."
+        echo "ARTIK IDE: SERVER NOT RESPONSIVE -- EXITING"
+        echo "           CONTACT SUPPORT FOR ASSISTANCE  "
+        echo "."
+        echo "-------------------------------------------"
+        exit 0
       fi
 
       let counter=counter+1
       sleep 5
     done
   SHELL
+
+  config.vm.provision "shell", run: "always" do |s|
+    s.inline = $script2
+    s.args = [$ip]
+  end
 
 end
