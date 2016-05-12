@@ -502,7 +502,6 @@ public class ManageDevicesPresenter implements ManageDevicesView.ActionDelegate,
                 .withType(selectedDevice.getRecipe().getType())
                 .withTags(selectedDevice.getRecipe().getTags())
                 .withDescription(selectedDevice.getRecipe().getDescription())
-                .withPermissions(selectedDevice.getRecipe().getPermissions())
                 .withScript(content.serialize());
 
         Promise<RecipeDescriptor> updateRecipe = recipeServiceClient.updateRecipe(recipeUpdate);
