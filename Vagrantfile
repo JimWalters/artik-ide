@@ -133,11 +133,11 @@ Vagrant.configure(2) do |config|
 
       # If we are not awake after 60 seconds, restart server
       if [ $counter == "11" ]; then
-        echo "---------------------------------------------"
+        echo "----------------------------------------------"
         echo "."
-        echo "ARTIK IDE: SERVER NOT RESPONSIVE -- REBOOTING"
+        echo "ARTIK IDE: SERVER NOT RESPONSIVE -- RESTARTING"
         echo "."
-        echo "---------------------------------------------"
+        echo "----------------------------------------------"
         export JAVA_HOME=/usr &>/dev/null
         echo vagrant | sudo -S -E -u vagrant /home/vagrant/eclipse-che-*/bin/che.sh --remote:${IP} --skip:client -g start &>/dev/null
       fi
