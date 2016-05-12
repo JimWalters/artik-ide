@@ -19,9 +19,9 @@
         <groupId>org.eclipse.che</groupId>
         <version>4.3.0-RC1-SNAPSHOT</version>
     </parent>
-    <artifactId>artik-ide-assembly-machine-server</artifactId>
+    <artifactId>artik-ide-assembly-wsagent-server</artifactId>
     <packaging>pom</packaging>
-    <name>Artik IDE :: Assembly Machine Plugins :: Server</name>
+    <name>Artik IDE :: Assembly WS Agent :: Server</name>
     <dependencies>
         <dependency>
             <groupId>log4j</groupId>
@@ -33,7 +33,7 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.che</groupId>
-            <artifactId>artik-ide-assembly-machine-war</artifactId>
+            <artifactId>artik-ide-assembly-wsagent-war</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
