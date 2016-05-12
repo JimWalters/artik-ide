@@ -15,8 +15,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
 
-import org.eclipse.che.api.machine.gwt.client.events.WsAgentStateEvent;
-import org.eclipse.che.api.machine.gwt.client.events.WsAgentStateHandler;
 import org.eclipse.che.ide.api.action.ActionManager;
 import org.eclipse.che.ide.api.action.DefaultActionGroup;
 import org.eclipse.che.ide.api.action.IdeActions;
@@ -24,6 +22,8 @@ import org.eclipse.che.ide.api.constraints.Constraints;
 import org.eclipse.che.ide.api.extension.Extension;
 import org.eclipse.che.ide.api.icon.Icon;
 import org.eclipse.che.ide.api.icon.IconRegistry;
+import org.eclipse.che.ide.api.machine.events.WsAgentStateEvent;
+import org.eclipse.che.ide.api.machine.events.WsAgentStateHandler;
 import org.eclipse.che.plugin.artik.ide.scp.PushToDeviceManager;
 import org.eclipse.che.plugin.artik.ide.manage.ManageArtikDevicesAction;
 

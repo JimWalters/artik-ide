@@ -11,21 +11,18 @@
  *******************************************************************************/
 package org.eclipse.che.plugin.artik.ide.manage;
 
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
 
-import org.eclipse.che.api.machine.gwt.client.WsAgentState;
-import org.eclipse.che.api.machine.gwt.client.events.WsAgentStateEvent;
-import org.eclipse.che.api.machine.gwt.client.events.WsAgentStateHandler;
 import org.eclipse.che.ide.api.action.Action;
 import org.eclipse.che.ide.api.action.ActionEvent;
-import org.eclipse.che.ide.ui.loaders.initialization.LoaderPresenter;
+import org.eclipse.che.ide.api.machine.WsAgentState;
+import org.eclipse.che.ide.api.machine.events.WsAgentStateEvent;
+import org.eclipse.che.ide.api.machine.events.WsAgentStateHandler;
 import org.eclipse.che.plugin.artik.ide.ArtikLocalizationConstant;
 import org.eclipse.che.plugin.artik.ide.ArtikResources;
 
-import static org.eclipse.che.ide.ui.loaders.initialization.LoaderPresenter.State.COMPLETED;
 
 /**
  * Action for calling Manage Artik Devices dialog.

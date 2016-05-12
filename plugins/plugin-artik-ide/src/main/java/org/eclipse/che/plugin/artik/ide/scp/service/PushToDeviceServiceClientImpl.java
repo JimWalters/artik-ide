@@ -14,9 +14,9 @@ package org.eclipse.che.plugin.artik.ide.scp.service;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import org.eclipse.che.api.machine.gwt.client.DevMachine;
 import org.eclipse.che.api.promises.client.Promise;
 import org.eclipse.che.ide.api.app.AppContext;
+import org.eclipse.che.ide.api.machine.DevMachine;
 import org.eclipse.che.ide.rest.AsyncRequestFactory;
 import org.eclipse.che.ide.ui.loaders.request.LoaderFactory;
 
