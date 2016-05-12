@@ -19,9 +19,9 @@
         <groupId>org.eclipse.che</groupId>
         <version>4.3.0-RC1-SNAPSHOT</version>
     </parent>
-    <artifactId>artik-ide-assembly-machine-war</artifactId>
+    <artifactId>artik-ide-assembly-wsagent-war</artifactId>
     <packaging>war</packaging>
-    <name>Artik IDE :: Machine Plugins :: Packaging</name>
+    <name>Artik IDE :: Assembly WS Agent :: Packaging</name>
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>

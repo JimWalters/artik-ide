@@ -44,7 +44,7 @@
             <outputDirectory>webapps</outputDirectory>
             <outputFileNameMapping>wsagent.war</outputFileNameMapping>
             <includes>
-                <include>org.eclipse.che:artik-ide-assembly-machine-war</include>
+                <include>org.eclipse.che:artik-ide-assembly-wsagent-war</include>
             </includes>
         </dependencySet>
     </dependencySets>
