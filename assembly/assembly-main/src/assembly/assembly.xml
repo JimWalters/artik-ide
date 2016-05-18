@@ -31,6 +31,15 @@
         </dependencySet>
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
+            <unpack>false</unpack>
+            <outputDirectory>tomcat/webapps</outputDirectory>
+            <outputFileNameMapping>wsmaster.war</outputFileNameMapping>
+            <includes>
+                <include>org.eclipse.che:artik-ide-assembly-wsmaster-war</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
             <unpack>true</unpack>
             <outputDirectory>tomcat/webapps/dashboard</outputDirectory>
             <outputFileNameMapping>dashboard.war</outputFileNameMapping>
@@ -139,7 +148,7 @@
             <outputDirectory>tomcat/webapps/dashboard/assets</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.parent.basedir}/assembly-wsagent-war/src/main/webapp/WEB-INF/classes/codenvy</directory>
+            <directory>${project.parent.basedir}/assembly-wsmaster-war/src/main/webapp/WEB-INF/classes/codenvy</directory>
             <outputDirectory>conf</outputDirectory>
         </fileSet>
         <fileSet>

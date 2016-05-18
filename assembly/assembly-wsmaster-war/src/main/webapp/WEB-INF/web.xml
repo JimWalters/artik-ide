@@ -22,6 +22,28 @@
         <param-name>org.everrest.websocket.context</param-name>
         <param-value>/api</param-value>
     </context-param>
+    <context-param>
+        <param-name>org.eclipse.che.websocket.endpoint</param-name>
+        <param-value>/ws/{ws-id}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.eclipse.che.eventbus.endpoint</param-name>
+        <param-value>/eventbus/</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>IDE</servlet-name>
+        <jsp-file>/IDE.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>IDE</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/_app/*</url-pattern>
+    </servlet-mapping>
 
     <listener>
         <listener-class>org.eclipse.che.inject.CheBootstrap</listener-class>

@@ -38,9 +38,6 @@ new Che packages and assemblies with your plug-ins.
   /plugins/ide        -> IDE extension, compiled with GWT & packaged into new ws-master Web
                          application.
 
-  /plugins/ws-master  -> Server-side extension & packaged into new ws-master Web application with 
-                         the IDE.
-
   /plugins/ws-agent   -> Server-side extension that runs in workspace machine & packaged into new 
                          ws-agent Web application.
 
@@ -67,7 +64,7 @@ compile and runtime.
   2. Che creates staging modules in temporary directories to build new Web applications:
 
        /sdk/assembly-ide-war/temp 
-       /sdk/assembly-machine-war/temp 
+       /sdk/assembly-wsagent-war/temp 
 
   3. Your plug-ins are added as dependencies to the maven pom.xml in each staging module. 
 
@@ -79,7 +76,7 @@ compile and runtime.
   5. If your plug-ins are added into the workspace agent, Che packages the agent web app with 
      Tomcat to create a new ws-agent.zip package:
 
-       /sdk/assembly-machine-server
+       /sdk/assembly-wsagent-server
        $ mvn -Denforcer.skip=true clean package install 
 
   6. The packages are copied into your core Che assembly, overwriting any old version. The
@@ -87,7 +84,7 @@ compile and runtime.
      overriding existing applications. 
 
        /sdk/assembly-ide-war/temp/target/*.war  --> /tomcat/webapps
-       /sdk/assembly-machine-server/target/*.zip --> /lib/ws-agent.zip
+       /sdk/assembly-wsagent-server/target/*.zip --> /lib/ws-agent.zip
      
   7. If `--assembly` flag, then Che also creates a new distributable package of Che:
 
