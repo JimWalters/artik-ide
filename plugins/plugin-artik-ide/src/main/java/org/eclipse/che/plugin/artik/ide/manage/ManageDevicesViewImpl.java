@@ -286,7 +286,7 @@ public class ManageDevicesViewImpl extends Window implements ManageDevicesView {
         ensureSSHCategoryExists(categoriesList);
 
         list.clear();
-        list.render(categoriesList);
+        list.render(categoriesList, true);
     }
 
     @Override
