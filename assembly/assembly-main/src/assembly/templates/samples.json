@@ -23,6 +23,61 @@
     ]
   },
   {
+    "name": "artik-http-test",
+    "displayName": "artik-http-test",
+    "path": "/artik-http-test",
+    "description": "An example app that checks https connection using Artik SDK",
+    "projectType": "c",
+    "mixins": [],
+    "attributes": {
+    },
+    "modules": [],
+    "problems": [],
+    "source": {
+      "type": "git",
+      "location": "https://github.com/che-samples/artik-http-test.git",
+      "parameters": {}
+    },
+    "commands": [
+      {
+        "name": "build",
+        "type": "custom",
+        "commandLine": "echo 'Compiling...' && cd ${current.project.path} && $CC -lartik-sdk -lpthread -g -o artik_http_test artik_http_test.c && echo 'Compilation succeeded. You may need to refresh project tree to find compiled binary and push it to target.'",
+        "attributes": {
+          "previewUrl": ""
+        }
+      },
+      {
+        "name": "startgdb",
+        "type": "custom",
+        "commandLine": "gdbserver :1234 /root/artik_http_test",
+        "attributes": {
+          "previewUrl": ""
+        }
+      },
+      {
+        "name": "stoptgdb",
+        "type": "custom",
+        "commandLine": "process=$(ps ax | grep \"[g]dbserver\" | awk {'print $1;}')
+        if [[ $process ]]; then
+      echo 'Stopping GDB server...'
+      kill $process
+      echo 'GDB server stopped'
+      else
+      echo 'GDB server is not running'
+      fi",
+      "attributes": {
+        "previewUrl": ""
+      }
+      }
+    ],
+    "links": [],
+    "category": "Samples",
+    "tags": [
+      "Artik"
+    ]
+  },
+  {
     "name": "artik-blink-led",
     "displayName": "artik-blink-led",
     "path": "/artik-blink-led",
@@ -60,15 +115,15 @@
         "type": "custom",
         "commandLine": "process=$(ps ax | grep \"[g]dbserver\" | awk {'print $1;}')
         if [[ $process ]]; then
-          echo 'Stopping GDB server...'
-          kill $process
-          echo 'GDB server stopped'
-        else
-          echo 'GDB server is not running'
-        fi",
-        "attributes": {
-          "previewUrl": ""
-        }
+      echo 'Stopping GDB server...'
+      kill $process
+      echo 'GDB server stopped'
+      else
+      echo 'GDB server is not running'
+      fi",
+      "attributes": {
+        "previewUrl": ""
+      }
       }
     ],
     "links": [],
@@ -115,15 +170,15 @@
         "type": "custom",
         "commandLine": "process=$(ps ax | grep \"[g]dbserver\" | awk {'print $1;}')
         if [[ $process ]]; then
-          echo 'Stopping GDB server...'
-          kill $process
-          echo 'GDB server stopped'
-        else
-          echo 'GDB server is not running'
-        fi",
-        "attributes": {
-          "previewUrl": ""
-        }
+      echo 'Stopping GDB server...'
+      kill $process
+      echo 'GDB server stopped'
+      else
+      echo 'GDB server is not running'
+      fi",
+      "attributes": {
+        "previewUrl": ""
+      }
       }
     ],
     "links": [],
@@ -150,21 +205,21 @@
     },
     "commands": [
       {
-       "name": "build",
-       "type": "custom",
-       "commandLine": "gcc /root/WeatherStationLibcurl.c -o /root/WeatherStationLibcurl –lcurl",
-       "attributes": {
-         "previewUrl": ""
-       }
-     },
-     {
-      "name": "run",
-      "type": "custom",
-      "commandLine": "/root/WeatherStationLibcurl",
-      "attributes": {
-        "previewUrl": ""
+        "name": "build",
+        "type": "custom",
+        "commandLine": "gcc /root/WeatherStationLibcurl.c -o /root/WeatherStationLibcurl –lcurl",
+        "attributes": {
+          "previewUrl": ""
+        }
+      },
+      {
+        "name": "run",
+        "type": "custom",
+        "commandLine": "/root/WeatherStationLibcurl",
+        "attributes": {
+          "previewUrl": ""
+        }
       }
-    }
     ],
     "links": [],
     "category": "Samples",
@@ -190,13 +245,13 @@
     },
     "commands": [
       {
-       "name": "run",
-       "type": "custom",
-       "commandLine": "node /root/WeatherStation_restclient.js",
-       "attributes": {
-         "previewUrl": ""
-       }
-     }
+        "name": "run",
+        "type": "custom",
+        "commandLine": "node /root/WeatherStation_restclient.js",
+        "attributes": {
+          "previewUrl": ""
+        }
+      }
     ],
     "links": [],
     "category": "Samples",
@@ -228,7 +283,7 @@
       "blank"
     ]
   },
-    {
+  {
     "name": "console-python3-simple",
     "displayName": "console-python3.5-simple",
     "path": "/console-python3-simple",
@@ -298,7 +353,7 @@
       "Python 2.7"
     ]
   },
-{
+  {
     "name": "web-rails-simple",
     "displayName": "web-rails-simple",
     "path": "/web-rails-simple",
@@ -881,8 +936,8 @@
     "tags": [
       "maven",
       "java",
-    "javaee",
-    "jaxrs"
+      "javaee",
+      "jaxrs"
     ]
   }
 ]
